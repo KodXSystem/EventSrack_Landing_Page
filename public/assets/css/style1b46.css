@@ -3894,6 +3894,7 @@ div.comment { margin-top: 25px; }
 
 .events-search-form #submit-search-events {
     padding: 18px 30px 19px 30px;
+	margin-top: 20px;
 }
 
 .widget-content .calendar_wrap {
@@ -4212,11 +4213,14 @@ select.minimal:focus {
 
 #royaltickets-search-form select {
     border-radius: 4px;
+	font-size: 18px;
+	background-color: #ffffff;
+    font-weight: 300;
 }
 
 #royaltickets-search-form select:focus {
     box-shadow: none;
-    color: #ffffff!important;
+    color: #999!important;
     outline: none;
 }
 
@@ -6921,10 +6925,11 @@ ul.royaltickets-widget-list li {
 }
 
 .wrapper h1 {
-	display: inline-block;
+	display: flex;
 	width: 100%;
 	margin-bottom: 30px;
-	font-weight: 700;
+	white-space-collapse: preserve
+	/* font-weight: 700; */
 }
 
 .wrapper h2 {
@@ -8587,8 +8592,8 @@ hr:before {
 .slick-arrow.slick-hidden {
     display: none;
 }
-
-@charset 'UTF-8';
+/* 
+@charset 'UTF-8'; */
 
 /* Icons */
 @font-face
@@ -8943,7 +8948,7 @@ hr:before {
 .royaltickets-admin-menu-wrapper {
 	display: none;
 	float: right;
-    position: relative;padding: ;
+    position: relative;
 }
 
 .fullscreen-menu-close {
@@ -14253,7 +14258,7 @@ ul.royaltickets-accordion li.active h4 i.accordion-arrows:after {
   clear: both; }
 
 .flip-clock-wrapper.clearfix {
-  *zoom: 1; }
+  zoom: 1; }
 
 /* Main */
 .flip-clock-wrapper {
@@ -14722,7 +14727,7 @@ ul.royaltickets-accordion li.active h4 i.accordion-arrows:after {
 
 @media (min-width: 1200px) {
     .container {
-        width: 1280px;
+        width: 1380px;
     }
 }
 

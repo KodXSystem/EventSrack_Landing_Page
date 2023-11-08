@@ -95,7 +95,7 @@ function Footer() {
                             <a href="http://themeforest.net/user/fantasythemes/portfolio?ref=fantasythemes">
                                 Event Track
                             </a>
-                            by{" "}
+                            {" "}by{" "}
                             <a href="http://themeforest.net/user/fantasythemes/portfolio?ref=fantasythemes">
                                 FantasyThemes
                             </a>
