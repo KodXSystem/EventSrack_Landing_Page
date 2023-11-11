@@ -1,16 +1,16 @@
 import logo from './logo.svg';
 import './App.css';
-import Header from'./Components/Header'
-import SideBar from './Components/SideBar';
-import Content from './Components/Content';
-import Footer from './Components/footer'
+import Header from './components/Header'
+import SideBar from './components/SideBar';
+import Content from './components/Content';
+import Footer from './components/footer'
 function App() {
   return (
     <div className="App">
-<Header/>
-<SideBar/>
-<Content/>
-<Footer/>
+      <Header />
+      <SideBar />
+      <Content />
+      <Footer />
     </div>
   );
 }
