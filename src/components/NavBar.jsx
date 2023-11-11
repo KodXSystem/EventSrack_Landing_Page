@@ -1,5 +1,5 @@
 import React from 'react'
-import AppLogo from '../Assets/logo/AppLogo.jpeg'
+import AppLogo from '../assets/logo/AppLogo.jpeg'
 export default function NavBar() {
   return (
       <div className="header-main">

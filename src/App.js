@@ -1,8 +1,8 @@
 import './App.css';
-import Header from './components/Header'
+import Header from './layout/Header'
 import SideBar from './components/SideBar';
 import Content from './components/Content';
-import Footer from './components/footer'
+import Footer from './layout/Footer'
 function App() {
   return (
     <div className="App">
