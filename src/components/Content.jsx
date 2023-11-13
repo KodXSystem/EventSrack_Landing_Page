@@ -1,5 +1,4 @@
 import React from "react";
-import image from "../logo.svg";
 import Typewriter from "typewriter-effect";
 import { useEffect, useState } from "react";
 import { useSpring, animated } from "react-spring";
