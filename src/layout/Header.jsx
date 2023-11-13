@@ -1,8 +1,6 @@
 import React from "react";
 import NavBar from '../components/NavBar';
 const Header = () => {
-  const today = new Date();
-  // console.log(today)
   return (
     <div>
       <>
