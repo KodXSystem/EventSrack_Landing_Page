@@ -5,9 +5,8 @@ import { useSpring, animated } from "react-spring";
 import { CSSTransition } from 'react-transition-group';
 import flatpickr from 'flatpickr';
 import { Card } from 'react-bootstrap';
-import DatePicker from 'react-date-picker';
 import { MDBCarousel, MDBCarouselItem, MDBContainer, MDBCol, MDBRow, MDBCard,
-  MDBCardBody, MDBCardOverlay,MDBRipple  } from 'mdb-react-ui-kit';
+  MDBCardBody, MDBCardOverlay,  } from 'mdb-react-ui-kit';
 export default function () {
   const [showForm, setShowForm] = useState(false);
   const partners = [
