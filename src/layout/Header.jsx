@@ -1,6 +1,8 @@
 import React from "react";
 import NavBar from '../components/NavBar';
 const Header = () => {
+  const today = new Date();
+  // console.log(today)
   return (
     <div>
       <>
@@ -17,7 +19,7 @@ const Header = () => {
                           <div id="offset">0</div>
                           <div id="date-format">F j, Y</div>
                           <div id="time-format">g:i a</div>
-                          <div id="current-time">November 7, 2023 8:57 am</div>
+                          <div >{Date()}</div>
                           <input type="hidden" id="final_date" />
                         </div>
                         <span className="date_and_time" />

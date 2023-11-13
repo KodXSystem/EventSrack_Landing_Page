@@ -25462,6 +25462,13 @@ a.badge-primary-desat:focus {
 	background-color: rgba(255, 255, 255, .2);
 	z-index: 999;
 }
+.partnerSection{
+	background-color: #000;
+	position: relative;
+    left: -5px;
+    box-sizing: border-box;
+    padding-top:120px
+}
 
 .tab-content .tab-pane-alt .tab-pane-image .vertical-line .tab-pane-alt-bg {
 	background-size: cover;
