@@ -23633,11 +23633,10 @@ a.badge-primary-desat:focus {
     z-index: 999;
 }
 .partnerSection{
-	background-color: #000;
-	position: relative;
-    left: -5px;
-    box-sizing: border-box;
-    padding-top:120px
+margin-top: 0px !important;
+    padding-top: 120px !important;
+    padding-bottom: 90px !important;
+    background-color: #16151a !important;
 }
 
 .tab-content .tab-pane-alt .tab-pane-image .vertical-line .tab-pane-alt-bg {
@@ -23655,6 +23654,7 @@ a.badge-primary-desat:focus {
     -ms-animation: slideOut 0.4s ease-in-out;
     animation: slideOut 0.4s ease-in-out;
 }
+/* Custom style for the Previous control button */
 
 @-webkit-keyframes slideOut{
     0%{ left: 0px; }
@@ -23676,7 +23676,6 @@ a.badge-primary-desat:focus {
     0%{ left: 0px; }
     100%{ left: 100%; }
 }
-
 .tab-content .tab-pane-alt .tab-pane-image .vertical-line.line-two .tab-pane-alt-bg {
     background-position: calc(100% / 2) 0px;
 }

@@ -5,7 +5,6 @@ const Header = () => {
   // console.log(today)
   return (
     <div>
-      <>
         <section className="section-header menu-style-default menu-color-default">
           <div id="header" className="sticky-header visible-header">
             <div className="header-top">
@@ -69,7 +68,6 @@ const Header = () => {
                             <i className="fab fa-youtube" />
                           </a>
                         </li>
-                    
                       </ul>
                     </div>
                   </div>
@@ -79,7 +77,6 @@ const Header = () => {
             <NavBar/>
           </div>
         </section>
-      </>
     </div>
   );
 };
