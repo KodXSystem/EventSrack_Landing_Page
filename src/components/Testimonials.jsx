@@ -27,7 +27,6 @@ export default function Testimonials() {
                         <MDBRow className="text-center ">
                             <MDBCol lg="4" className="mb-5 mb-md-0">
                                 <MDBCard bg="black" shadow="0" >
-
                                     <MDBCardBody className="gray-card d-flex flex-column justify-content-center align-items-center" style={{ height: '300px', width: '400px', borderRadius: '4px' }}>
 
                                         <h5 className="font-normal mt-4 " style={{ marginLeft: "-140px", fontFamily: "Montserrat, sans-serif", }}>Awesome Support!</h5>
