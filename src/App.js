@@ -1,12 +1,11 @@
 import './App.css';
-import Header from './Components/Header'
-import Footer from './Components/Footer';
-import Mainbody from './Components/Mainbody';
+import React from 'react';
+import Testimonials from '../src/components/Testimonials';
+import Footer from '../src/components/Footer';
 function App() {
   return (
-    <div className="App">
-      {/* <Header /> */}
-      <Mainbody/>
+    <div className="App">  
+    <Testimonials/> 
       <Footer />
     </div>
   );
