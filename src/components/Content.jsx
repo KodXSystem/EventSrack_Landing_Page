@@ -3,10 +3,12 @@ import Typewriter from "typewriter-effect";
 import { useEffect, useState } from "react";
 import { useSpring, animated } from "react-spring";
 import { CSSTransition } from 'react-transition-group';
-import flatpickr from 'flatpickr';
-import { Card } from 'react-bootstrap';
+import Flatpickr from "react-flatpickr";
+
+import 'flatpickr/dist/themes/light.css'; 
+import Event from "./Event"
 import { MDBCarousel, MDBCarouselItem, MDBContainer, MDBCol, MDBRow, MDBCard,
-  MDBCardBody, MDBCardOverlay,  } from 'mdb-react-ui-kit';
+  MDBCardBody, MDBCardOverlay,MDBCardText,MDBCardTitle  } from 'mdb-react-ui-kit';
 export default function () {
   const [showForm, setShowForm] = useState(false);
   const partners = [
@@ -47,67 +49,9 @@ export default function () {
     },
     // Add more partners following the same pattern
   ];
-  const events = [
-    {
-      id: 1,
-      imageSrc: 'assets/wp-content/uploads/2019/12/vibra-mahou-fest-1-873x1024.jpg',
-      price: '$39 - $1,200',
-      eventName: 'Vibra Mahou Fest',
-      date: 'Jul 16',
-      location: ' Grant Park, Chicago  ',
-    },
-    {
-      id: 2,
-      imageSrc: 'assets/wp-content/uploads/2019/12/kenny-g-873x1024.jpg',
-      price: '$120',
-      eventName: 'Kenny G',
-      date: '     Aug 28',
-      location: '   Majestic Theatre  ',
-    },
-    {
-      id: 3,
-      imageSrc: 'assets/wp-content/uploads/2019/12/sesame-street-live-3-873x1024.jpg',
-      price: '$45',
-      eventName: '  Sesame Street Live! Make Your Magic',
-      date: ' Sep 26',
-      location: 'Grand Chapiteau',
-    },
- 
-    {
-      id: 4,
-      imageSrc: '   assets/wp-content/uploads/2019/10/the-nutcracker-873x1024.jpg',
-      price: '$69 - $79',
-      eventName: ' St. Petersburg Ballet-The Nutcracker     ',
-      date: 'Oct 9',
-      location: 'Majestic Theatre',
-    },
-    {
-      id: 5,
-      imageSrc: 'assets/wp-content/uploads/2019/12/vlah-dumitru-FvmwloIbCeQ-unsplash-873x1024.jpg',
-      price: '  $36 - $69',
-      eventName: 'The Phantom of the Opera',
-      date: '  Nov 28',
-      location: 'Kings Theatre',
-    },
-    {
-      id: 6,
-      imageSrc: 'assets/wp-content/uploads/royaltickets-uploads/2019/12/cirque-du-solei-kurios-873x1024.jpg',
-      price: '$49',
-      eventName: 'Cirque du Soleil Kurios',
-      date: 'Dec 26',
-      location: 'Grand Chapiteau',
-    },
-    {
-      id: 7,
-      imageSrc: 'assets/wp-content/uploads/royaltickets-uploads/2020/01/it-conference-cover-873x1024.jpg',
-      price: '$149 - $300',
-      eventName: 'IT Conference',
-      date: 'Apr 17',
-      location: 'San Jose Civic',
-    },
-  ];
+  
   useEffect(() => {
-    const delay = 1000; // Set your desired delay in milliseconds
+    const delay = 1000;
     const timer = setTimeout(() => {
       setShowForm(true);
     }, delay);
@@ -119,24 +63,11 @@ export default function () {
     opacity: showForm ? 1 : 0,
     from: { opacity: 0 },
   });
-  const [dateRange, setDateRange] = useState(["2023-11-07", "2023-11-14"]);
-  useEffect(() => {
-    const inputElement = document.querySelector('.flatpickr');
-    flatpickr(".flatpickr", {
-      altInput: true,
-      mode: "range",
-      dateFormat: "Y-m-d",
-      altFormat: "F j",
-      defaultDate: dateRange,
-    });
-  }, []);
+  const [dateRange, setDateRange] = useState([]);
+  const handleDateChange = (dateRange) => {
+    setDateRange(dateRange);
+  };
 
-  let eventsChunks=[]
-  const isMobile = window.innerWidth <= 576; 
-  const chunkSize = isMobile ? 1 : 3; 
-  for (let i = 0; i < events.length; i += chunkSize) {
-    eventsChunks.push(events.slice(i, i + chunkSize));
-  }
 
   return (
     <div>
@@ -245,9 +176,6 @@ export default function () {
                                           <select
                                             className="chosen-select"
                                             name="city"
-                                            data-bg-color="#ffffff"
-                                            data-icon=""
-                                            data-size-dropdown="large"
                                           >
                                             <option value="">
                                               Select Location
@@ -272,15 +200,17 @@ export default function () {
                                         {/* Filter */}
                                         <div className="position-relative">
                                           <div className="title">When</div>
-                                          <input
-                                            // className="flatpickr form-control form-control-sm bg-white"
-                                            name="dates"
-                                            type="text"
-                                            placeholder="Date range"
-                                            data-flatpickr=""
-                                            value={`${dateRange[0]} to ${dateRange[1]}`}
-                                            readOnly
-                                          />
+                                          <Flatpickr
+                                         style={{border :'1px solid #fff'}}
+                                            options={{
+                                            mode: 'range',
+                                            altInput: true,
+                                            altFormat: "F j",
+                                            dateFormat: "Y-m-d", 
+                                            onClose: handleDateChange 
+                                          }}
+                                          placeholder="Pick a date"
+                                           value={dateRange}/>
                                         </div>
                                         {/* End Filter */}
                                       </div>
@@ -329,67 +259,20 @@ export default function () {
                     </div>
                   </div>
                 </div>
-                <div className="text-right wpb_column vc_column_container vc_col-sm-12 vc_col-lg-6 vc_col-md-6 vc_col-xs-12">
-                  <div className="vc_column-inner ">
-                    <div className="wpb_wrapper" />
-                  </div>
-                </div>
-              </div>
-              <div className="vc_row wpb_row vc_row-fluid">
-                <div className="wpb_column vc_column_container vc_col-sm-12">
-                  <div className="vc_column-inner ">
-                    <div className="wpb_wrapper">
-                      <div className="row ">
-                     
- <MDBContainer className="py-10" style={{ marginBottom: '-160px' }}>
-      <MDBCarousel showControls>
-        {eventsChunks.map((chunk, index) => (
-          <MDBCarouselItem key={index + 1}>
-            <MDBRow className="text-center">
-              {chunk.map(event => (
-                <MDBCol key={event.id} lg="4" className="mb-5 mb-md-0">
-                  <MDBCard className="text-white" style={{ width: '24rem', textAlign: 'start' }}>
-                    <div className='bg-image hover-zoom'>
-                    <Card.Img variant="top" src={event.imageSrc} />
-                    </div>
-                    < MDBCardOverlay>
-                      <MDBCardBody>
-                        <span>{event.price}</span>
-                        <Card.Title style={{ color: 'white' }}>{event.eventName}</Card.Title>
-                        <Card.Text style={{ color: 'white' }}>
-                          {event.date} - {event.location}
-                          <br />
-                          <a href="#">Book ticket</a>
-                        </Card.Text>
-                      </MDBCardBody>
-                    </ MDBCardOverlay>
-                  </MDBCard>
-           
-                </MDBCol>
-              ))}
-            </MDBRow>
-          </MDBCarouselItem>
-        ))}
-      </MDBCarousel>
-    </MDBContainer>
-    </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              </div> 
+               <Event/>
             </section>  
-      <section className="wrapper">
-        <div className="partnerSection">
+            <section className="vc_section overflow-visible vc_custom_1585643340020 vc_section-has-fill vc_section-o-content-bottom vc_section-flex vc_general vc_parallax vc_parallax-content-moving">
+           <div className="partnerSection ">
                  <div className="d-block w-100">
                   <h3 style={{textAlign:"center",color: "#999"}}>Our Partners</h3>
                   </div>
             <div className="row justify-content-center">
-          {partners.map((partner, index) => (
+             {partners.map((partner, index) => (
             <CSSTransition
               key={index}
-              in={true} // Set this to true to animate on initial render
-              timeout={index * 100} // Adjust the delay as needed
-             
+              in={true}
+              timeout={index * 100}
             >
                <div className="col-12 col-md-6 col-lg-4 col-xl-3 d-flex align-items-center justify-content-center">
                 <div
@@ -405,13 +288,11 @@ export default function () {
           ))}
           </div>
           </div>
-      </section>
-            <div className="vc_row-full-width vc_clearfix" />
+            </section>
           </section>
-          <div className="royaltickets-page-comments"></div>
-        </div>{" "}
+        </div>
         {/* /container*/}
-      </section>{" "}
+      </section>
       {/* /wrapper.section */}
       <ul class="side-social-links">
         <li class="pr-4">

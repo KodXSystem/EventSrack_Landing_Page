@@ -910,8 +910,8 @@ body.admin-bar #header.clone-fixed.slideDown {
 }
 
 #header .logo-main img {
-	height: 110px;
-	margin: 0;
+    height: 120px;
+    margin: 0;
 	width: 100%;
 }
 
@@ -7994,7 +7994,10 @@ hr:before {
 	font-weight: 700;
 	letter-spacing: .25em;
 }
-
+.Logo{
+max-width: fit-content;
+max-height: fit-content;
+}
 .royaltickets-footer-header {
 	color: rgba(255, 255, 255, 0.5);
 	display: block;
@@ -15754,9 +15757,9 @@ p.has-background {
 		max-width: 80%;
 	}
 
-	#header .logo-main img {
-		height: 30px;
-	}
+    #header .logo-main img {
+        height: 75px;
+    }
 
 	#header.clone-fixed.slideDown,
 	#header .header-top {
@@ -25463,11 +25466,10 @@ a.badge-primary-desat:focus {
 	z-index: 999;
 }
 .partnerSection{
-	background-color: #000;
-	position: relative;
-    left: -5px;
-    box-sizing: border-box;
-    padding-top:120px
+margin-top: 0px !important;
+    padding-top: 120px !important;
+    padding-bottom: 90px !important;
+    background-color: #16151a !important;
 }
 
 .tab-content .tab-pane-alt .tab-pane-image .vertical-line .tab-pane-alt-bg {
@@ -25485,6 +25487,7 @@ a.badge-primary-desat:focus {
 	-ms-animation: slideOut 0.4s ease-in-out;
 	animation: slideOut 0.4s ease-in-out;
 }
+/* Custom style for the Previous control button */
 
 @-webkit-keyframes slideOut {
 	0% {
@@ -25535,7 +25538,6 @@ a.badge-primary-desat:focus {
 		left: 100%;
 	}
 }
-
 .tab-content .tab-pane-alt .tab-pane-image .vertical-line.line-two .tab-pane-alt-bg {
 	background-position: calc(100% / 2) 0px;
 }
