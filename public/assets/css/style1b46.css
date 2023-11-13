@@ -696,7 +696,7 @@ body.admin-bar #header.clone-fixed.slideDown {
 }
 
 #header .logo-main img {
-    height: 110px;
+    height: 120px;
     margin: 0;
 	width: 100%;
 }
@@ -7549,7 +7549,10 @@ hr:before {
     font-weight: 700;
     letter-spacing: .25em;
 }
-
+.Logo{
+max-width: fit-content;
+max-height: fit-content;
+}
 .royaltickets-footer-header {
 	color: rgba(255, 255, 255, 0.5);
     display: block;
@@ -15075,7 +15078,7 @@ p.has-background {
     }
 
     #header .logo-main img {
-        height: 30px;
+        height: 75px;
     }
 
     #header.clone-fixed.slideDown,

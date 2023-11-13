@@ -1,5 +1,5 @@
 import React from 'react'
-import AppLogo from '../Assets/logo/AppLogo.jpeg'
+import AppLogo from '../Assets/logo/AppLogo.png'
 export default function NavBar() {
   return (
       <div className="header-main">
@@ -12,12 +12,12 @@ export default function NavBar() {
               alt="Logo"
             />{" "}
           </a>
-          <a className="logo-wrapper logo-light" href="../index.html">
+          {/* <a className="logo-wrapper logo-light" href="../index.html">
             <img
               src={AppLogo}
               alt="Logo"
             />{" "}
-          </a>
+          </a> */}
         </div>
         <div className="royaltickets-menu-wrapper">
           <a
