@@ -13,7 +13,6 @@ import {
 import "./style.css"
 export default function Testimonials() {
     return (
-
         <MDBContainer className="py-10 " style={{ marginBottom: "-140px", }}>
             <MDBCarousel showControls >
                 <div className="d-block w-100 mt-4 vc_custom_1585645531235 royaltickets_title_6549fbce1ab27" style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 700, fontSize: '35px', lineHeight: '35px' }}>
@@ -607,7 +606,7 @@ export default function Testimonials() {
                         </MDBRow>
                     </MDBContainer>
                 </MDBCarouselItem>
-
-            </MDBCarousel></MDBContainer>
+            </MDBCarousel>
+            </MDBContainer>
     );
 }
