@@ -1,4 +1,5 @@
 
+/* Custom style for the Previous control button */
 .carousel-control-prev,
 .carousel-control-next {
   display: none !important; /* Hide the controls by default on all screens */
@@ -12,57 +13,57 @@
   }
 }
 
-
 /* Other styles for the carousel */
-.carousel-inner{
-  padding-top: 100px;
+.carousel-inner {
+  height: 538px;
 }
+
+.carousel-control-prev-icon {
+  right: unset !important;
+  left: 88%;
+  color: black !important;
+  width: 40px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s;
+  margin-top: -100px;
+  margin-left: -60px;
+}
+
 .carousel-control-prev-icon:after {
   content: "\2026";
   color: black;
   font-size: 1px;
+  border: 9px solid lightgrey;
   border-radius: 280%;
-  padding-left: 23px;
+  padding: 16px;
+  padding-left: 21px;
   padding-right: 23px;
-
+  background-color: white;
 }
 
 .carousel-control-prev:hover .carousel-control-prev-icon:after {
   color: red !important;
 }
 
-/* .carousel-dark {
-  margin-left: -18px;
-} */
-.visually-hidden{
-  display: none;
+.carousel-dark {
+  margin-left: -12px;
 }
 
-.carousel-control-next {
+.carousel-control-next-icon {
   right: unset !important;
   left: 88%;
   color: black !important;
-  width: 90px;
-  height: 100px;
+  width: 40px;
+  height: 30px;
   border-radius: 280%;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition:  0.3s;
-  margin-top: 24px;
-  margin-left: 45px;
-}
-.carousel-control-prev{
-  right: unset !important;
-  left: 88%;
-  color: black !important;
-  width: 80px;
-  height: 70px;
-  border-radius: 280%;
-  display: flex;
-  align-items: center;
-  justify-content: top;
-  transition: 0.3s;
+  transition: background-color 0.3s;
+  margin-top: 58px;
   margin-left: -45px;
 }
 
@@ -70,16 +71,41 @@
   content: "\2026";
   color: black;
   font-size: 1px;
+  border: 9px solid lightgrey;
   border-radius: 280%;
-  padding:23px;
-  padding-left: 23px;
+  padding: 16px;
+  padding-left: 21px;
   padding-right: 23px;
-
+  background-color: white;
 }
 
 .carousel-control-next:hover .carousel-control-next-icon:after {
   color: red !important;
 }
+
+.gray-card {
+  background-color: #f2f2f2;
+}
+
+.custom-image {
+  width: 60px;
+  height: 60px;
+}
+
+.custom-smaller-font {
+  font-size: 14px;
+}
+
+/* Responsive styles for all screens */
+@media (max-width: 100%) {
+  .carousel-control-prev,
+  .carousel-control-next {
+    display: none !important; /* Hide controls on all screens */
+  }
+
+  /* Add any additional responsive styles here */
+}
+
 .card-img-overlay{
 bottom: 0;
 padding: 1.25rem;
@@ -111,4 +137,12 @@ padding: 1.25rem;
   }
 
   /* Add any additional responsive styles here */
+}
+/* .jarallax-img{
+  justify-content: center;
+  margin-left: 300px;
+} */
+.bg-light-darkened {
+  background-color: rgb(244, 244, 244); /* This is a slightly darker shade of gray */
+  /* Add any other styles you want for the darkened background */
 }
