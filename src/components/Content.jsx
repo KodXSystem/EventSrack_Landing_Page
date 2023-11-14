@@ -88,7 +88,7 @@ export default function () {
       ...searchData,
       selectedLocation: event.target.value
     })
-  }
+  } 
   const handleSearch=()=>{
 console.log("search");
 const apiUrl = 'https://example.com/api/data';
