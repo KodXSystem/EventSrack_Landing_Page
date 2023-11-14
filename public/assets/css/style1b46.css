@@ -4323,7 +4323,7 @@ div.comment {
 }
 
 .events-search-form input.form-control {
-	padding: 0;
+
 	border: 0;
 	font-size: 18px;
 	color: #666;
@@ -4694,7 +4694,7 @@ select.minimal:focus {
 #royaltickets-search-form select {
 	border-radius: 4px;
 	font-size: 18px;
-	background-color: #ffffff;
+	/* background-color: #ffffff; */
 	font-weight: 300;
 }
 

@@ -4,12 +4,22 @@ import { useEffect, useState } from "react";
 import { useSpring, animated } from "react-spring";
 import { CSSTransition } from 'react-transition-group';
 import Flatpickr from "react-flatpickr";
-
+import NaijaStates from 'naija-state-local-government';
 import 'flatpickr/dist/themes/light.css'; 
 import Event from "./Event"
+import axios from 'axios';
 import { MDBCarousel, MDBCarouselItem, MDBContainer, MDBCol, MDBRow, MDBCard,
   MDBCardBody, MDBCardOverlay,MDBCardText,MDBCardTitle  } from 'mdb-react-ui-kit';
+import { json } from "react-router-dom";
 export default function () {
+  const [selectedState, setSelectedState] = useState('');
+  const [searchData, setSearchData] = useState({
+         selectedCategory:"",
+         selectedLocation:"",
+         startDate:"",
+         endDate:""
+               });
+
   const [showForm, setShowForm] = useState(false);
   const partners = [
     {
@@ -49,7 +59,7 @@ export default function () {
     },
     // Add more partners following the same pattern
   ];
-  
+
   useEffect(() => {
     const delay = 1000;
     const timer = setTimeout(() => {
@@ -66,9 +76,33 @@ export default function () {
   const [dateRange, setDateRange] = useState([]);
   const handleDateChange = (dateRange) => {
     setDateRange(dateRange);
+    setSearchData({
+      ...searchData,
+      startDate: dateRange[0],
+      endDate: dateRange[1],
+    })
   };
-
-
+  const handleStateChange = (event) => {
+    setSelectedState(event.target.value);
+      setSearchData({
+      ...searchData,
+      selectedLocation: event.target.value
+    })
+  }
+  const handleSearch=()=>{
+console.log("search");
+const apiUrl = 'https://example.com/api/data';
+axios.post(apiUrl, searchData)
+  .then(response => {
+    // Handle the successful response here
+    console.log('Response:', response.data);
+  })
+  .catch(error => {
+    // Handle errors here
+    console.error('Error:', error);
+  });
+  }
+  console.log(searchData);
   return (
     <div>
       <section className="wrapper">
@@ -136,16 +170,17 @@ export default function () {
                                 <div className="form-row shadow bg-white rounded px-6 pt-7 pb-4 overflow-visible events-search-form">
                                   <div className="col-lg mb-3 mb-lg-0">
                                     <div className="form-row">
-                                      <div className="col-md-4 col-sm-12">
+                                      <div className="col-md-4 col-sm-12" >
                                         {/* Filter */}
                                         <div className="position-relative">
                                           <div className="title">What</div>
                                           <select
                                             className="chosen-select"
                                             name="category"
-                                            data-bg-color="#ffffff"
-                                            data-icon=""
-                                            data-size-dropdown="large"
+                                          onChange={(e)=>  setSearchData({
+                                            ...searchData,
+                                            selectedCategory: e.target.value
+                                          })}
                                           >
                                             <option value={0}>
                                               Select Category
@@ -169,39 +204,36 @@ export default function () {
                                         </div>
                                         {/* End Filter */}
                                       </div>
-                                      <div className="col-md-4 col-sm-12">
+                                      <div className="col-md-4 col-sm-12" >
                                         {/* Filter */}
                                         <div className="position-relative">
                                           <div className="title">Where</div>
                                           <select
                                             className="chosen-select"
                                             name="city"
+                                            value={selectedState} 
+                                            onChange={handleStateChange}
                                           >
                                             <option value="">
                                               Select Location
                                             </option>
-                                            <option value="brooklyn">
-                                              Brooklyn
-                                            </option>
-                                            <option value="chicago">
-                                              Chicago
-                                            </option>
-                                            <option value="new-york">
-                                              New York
-                                            </option>
-                                            <option value="san-jose">
-                                              San Jose
-                                            </option>
+                                            {NaijaStates.states()?.map((state,index) => (
+                                              <option value={state}>
+                                               {state}
+                                              </option>
+                                                 ))}
                                           </select>
                                         </div>
+                                        
                                         {/* End Filter */}
                                       </div>
-                                      <div className="col-md-4 col-sm-10">
+                                      <div className="col-md-4 col-sm-12" >
+                                        
                                         {/* Filter */}
                                         <div className="position-relative">
                                           <div className="title">When</div>
                                           <Flatpickr
-                                         style={{border :'1px solid #fff'}}
+                                           style={{border :'1px solid #999'}}
                                             options={{
                                             mode: 'range',
                                             altInput: true,
@@ -219,7 +251,8 @@ export default function () {
                                   <div className="col-sm-auto">
                                     <a
                                       id="submit-search-events"
-                                      href="#"
+                                      // href="#"
+                                      onClick={handleSearch}
                                       className="btn btn-sm btn-danger fw-500 text-uppercase w-100 mb-20"
                                     >
                                       Search{" "}
