@@ -71,10 +71,10 @@ export default function Event() {
   }
   return (
 
-<MDBContainer className="" style={{ marginBottom: '100px',marginTop:'-123px', marginLeft:'-2px'}}>
-      <MDBCarousel showControls interval={3000}>
+<MDBContainer className="" style={{ marginBottom: '100px',marginTop:'-12px', marginLeft:'-2px'}}>
+      <MDBCarousel showControls interval={3000} style={{marginTop:'-168px'}}>
         {eventsChunks.map((chunk, index) => (
-          <MDBCarouselItem key={index + 1}>
+          <MDBCarouselItem key={index + 1} style={{marginTop:'137px'}}>
             <MDBRow >
               {chunk.map(event => (
                 <MDBCol key={event.id} >

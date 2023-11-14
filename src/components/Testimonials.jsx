@@ -13,17 +13,18 @@ import {
 import "./style.css"
 export default function Testimonials() {
     return (
+
         <MDBContainer className="py-10 " style={{ marginBottom: "-140px", }}>
             <MDBCarousel showControls >
-                <div className="d-block w-100 mt-4 vc_custom_1585645531235 royaltickets_title_6549fbce1ab27" style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 700, fontSize: '35px', lineHeight: '35px' }}>
+                <div className="d-block w-100 mt-10 vc_custom_1585645531235 royaltickets_title_6549fbce1ab27" style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 700, fontSize: '35px', lineHeight: '35px' }}>
                     <p className="subtitle text-left">Testimonials</p>
                     <h3 className="font-weight-bold mb-0 lh-1 text-left">
                         Hear From Our Organizers
                     </h3>
                 </div>
                 <MDBCarouselItem className="active" >
-                    <MDBContainer >
-                        <MDBRow className="text-center ">
+                    <MDBContainer style={{marginLeft:'-18px'}}>
+                        <MDBRow className="text-start  ">
                             <MDBCol lg="4" className="mb-5 mb-md-0">
                                 <MDBCard bg="black" shadow="0" >
                                     <MDBCardBody className="gray-card d-flex flex-column justify-content-center align-items-center" style={{ height: '300px', width: '400px', borderRadius: '4px' }}>
@@ -88,7 +89,7 @@ export default function Testimonials() {
                                 </MDBCard>
                             </MDBCol>
                             <MDBCol lg="4" className="mb-5 mb-md-0">
-                                <MDBCard bg="black" shadow="0" >
+                                <MDBCard bg="black" shadow="0">
                                     <MDBCardBody className="gray-card d-flex flex-column justify-content-center align-items-center" style={{ height: '300px', width: '400px', borderRadius: '4px' }}>
 
                                         <h5 className="font-normal mt-4 " style={{ marginLeft: "-140px", fontFamily: "Montserrat, sans-serif", }}>Awesome Support!</h5>
@@ -217,7 +218,7 @@ export default function Testimonials() {
                     </MDBContainer>
                 </MDBCarouselItem>
                 <MDBCarouselItem>
-                    <MDBContainer>
+                    <MDBContainer style={{marginLeft:'-18px'}}>
                         <MDBRow className="text-center">
                             <MDBCol lg="4" className="mb-5 mb-md-0">
                                 <MDBCard bg="black" shadow="0" >
@@ -412,7 +413,7 @@ export default function Testimonials() {
                     </MDBContainer>
                 </MDBCarouselItem>
                 <MDBCarouselItem>
-                    <MDBContainer>
+                    <MDBContainer style={{marginLeft:'-18px'}}>
                         <MDBRow className="text-center">
                             <MDBCol lg="4" className="mb-5 mb-md-0">
                                 <MDBCard bg="black" shadow="0" >
