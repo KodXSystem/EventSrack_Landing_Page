@@ -12,6 +12,13 @@
     display: block !important; /* Show controls on screens larger than 768px */
   }
 }
+.added-row {
+  /* Define your border or any other styling for the dynamically added rows here */
+  /* For example: */
+  border: 1px solid #000;
+  padding: 10px;
+  margin-bottom: 10px;
+}
 
 /* Other styles for the carousel */
 .carousel-inner {

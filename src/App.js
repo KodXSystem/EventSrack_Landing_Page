@@ -6,10 +6,10 @@ import Testimonials from './components/Testimonials';
 function App() {
   return (
     <>
-      <RoutesFiles />
+      {/* <RoutesFiles /> */}
       {/* <Testimonials/> */}
       {/* <EventDetails/> */}
-      {/* <TicketBook/> */}
+      <TicketBook/>
     </>
   )
 }
