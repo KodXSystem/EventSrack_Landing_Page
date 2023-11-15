@@ -76,11 +76,23 @@ export default function () {
   const [dateRange, setDateRange] = useState([]);
   const handleDateChange = (dateRange) => {
     setDateRange(dateRange);
+    const formattedStartDate = dateRange[0]?.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+    });
+    
+    const formattedEndDate = dateRange[1]?.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+    });
+    
     setSearchData({
       ...searchData,
-      startDate: dateRange[0],
-      endDate: dateRange[1],
-    })
+      startDate: formattedStartDate,
+      endDate: formattedEndDate,
+    });
   };
   const handleStateChange = (event) => {
     setSelectedState(event.target.value);
@@ -90,15 +102,12 @@ export default function () {
     })
   } 
   const handleSearch=()=>{
-console.log("search");
 const apiUrl = 'https://example.com/api/data';
 axios.post(apiUrl, searchData)
   .then(response => {
-    // Handle the successful response here
     console.log('Response:', response.data);
   })
   .catch(error => {
-    // Handle errors here
     console.error('Error:', error);
   });
   }
