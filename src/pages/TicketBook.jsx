@@ -6,24 +6,28 @@ export default function TicketBook() {
     const [quantity, setQuantity] = useState(1);
     const [rows, setRows] = useState([
         [
-            { id: 0 },
+            { id: 1},
             {
                 label: 'Full Name',
                 name: 'ticket-name',
                 id: '1',
-                defaultValue: ''
+                defaultValue: '',
+                placeholder: 'Enter your name'
             },
             {
                 label: 'Email Address',
                 name: 'ticket-email',
                 id: '2',
-                defaultValue: ''
+                defaultValue: '',
+                placeholder: 'Enter your email'
             },
             {
                 label: 'Phone Number',
                 name: 'ticket-phone',
                 id: '3',
-                defaultValue: ''
+                defaultValue: '',
+                placeholder: 'Enter your phone number'
+
             }
         ]
     ]);
@@ -43,19 +47,23 @@ export default function TicketBook() {
                         label: 'Full Name',
                         name: 'ticket-name',
                         id: '1',
-                        defaultValue: ''
+                        defaultValue: '',
+                        placeholder: 'Enter your name'
                     },
                     {
                         label: 'Email Address',
                         name: 'ticket-email',
                         id: '2',
-                        defaultValue: ''
+                        defaultValue: '',
+                        placeholder: 'Enter your email'
                     },
                     {
                         label: 'Phone Number',
                         name: 'ticket-phone',
                         id: '3',
-                        defaultValue: ''
+                        defaultValue: '',
+                        placeholder: 'Enter your phone number'
+
                     }
                 ]
             ];
@@ -63,7 +71,8 @@ export default function TicketBook() {
             return updatedRows;
         });
     };
-    const decrement = () => {
+    const decrement = (index) => {
+        console.log(index);
         if (quantity > 1 && rows.length > 1) {
             setQuantity(prevQuantity => {
                 const newQuantity = prevQuantity - 1;
@@ -82,11 +91,15 @@ export default function TicketBook() {
 
 
     const handleRemoveRow = (idToRemove) => {
-        setRows(rows.filter((row) => row.id !== idToRemove));
+    const updatedRows = rows.filter((row) => row[0].id !== idToRemove);
+    setRows(updatedRows);
+    setQuantity(prevQuantity => {
+        const newQuantity = prevQuantity - 1;
+        console.log('New Quantity:', newQuantity);
+        return newQuantity;
+    });
     };
-    const handleRemoveSection = () => {
-        setRows([]);
-    };
+
     return (
         <div><>
             <section className="z-index-9 jarallax has-image-bg">
@@ -167,12 +180,10 @@ export default function TicketBook() {
                             <div className="row mb-3">
                                 <div>
                                     {rows.map((rowArray, index) => (
-                                        <div className="position-relative mb-4 border rounded p-3" key={index}>
-                                            <h2>Personal Details</h2>
+                                        <div className="position-relative mb-6 border rounded p-3" key={index}>
+                                          <h3>{index === 0 ? 'Personal Details' : `Enteries ${rowArray[0].id}`}</h3>
                                             {rowArray.slice(1).map((row) => (
-                                                
                                                 <div key={row.id}>
-                                                    
                                                     <label className="form-label text-uppercase font-weight-bold fs-14 mb-2">
                                                         {row.label}
                                                     </label>
@@ -182,19 +193,19 @@ export default function TicketBook() {
                                                         name={row.name}
                                                         id={row.id}
                                                         defaultValue={row.defaultValue}
-                                                        readOnly
+                                                        placeholder={row.placeholder} // Include placeholder attribute here
                                                     />
                                                 </div>
                                             ))}
                                             {index !== 0 && (
-                                                <>
                                                 <button
-                                                    className="btn-close position-absolute top-0 end-0"
-                                                    onClick={decrement}
-                                                ></button></>
+                                                    className="btn-close position-absolute top-0 p-3 end-0"
+                                                    onClick={()=>handleRemoveRow(rowArray[0].id)}
+                                                ></button>
                                             )}
                                         </div>
                                     ))}
+
                                 </div>
                             </div>
                             <div>
