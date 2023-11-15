@@ -180,8 +180,8 @@ export default function TicketBook() {
                             <div className="row mb-3">
                                 <div>
                                     {rows.map((rowArray, index) => (
-                                        <div className="position-relative mb-6 border rounded p-3" key={index}>
-                                          <h3>{index === 0 ? 'Personal Details' : `Enteries ${rowArray[0].id}`}</h3>
+                                        <div className="position-relative mb-6 border rounded p-3 " key={index}>
+                                          <h3>{index === 0 ? 'Personal Details' : `Atendies ${rowArray[0].id}`}</h3>
                                             {rowArray.slice(1).map((row) => (
                                                 <div key={row.id}>
                                                     <label className="form-label text-uppercase font-weight-bold fs-14 mb-2">
@@ -189,7 +189,7 @@ export default function TicketBook() {
                                                     </label>
                                                     <input
                                                         type="text"
-                                                        className="form-control mb-2"
+                                                        className="form-control mb-2 "
                                                         name={row.name}
                                                         id={row.id}
                                                         defaultValue={row.defaultValue}
@@ -198,10 +198,12 @@ export default function TicketBook() {
                                                 </div>
                                             ))}
                                             {index !== 0 && (
-                                                <button
-                                                    className="btn-close position-absolute top-0 p-3 end-0"
-                                                    onClick={()=>handleRemoveRow(rowArray[0].id)}
-                                                ></button>
+                                             <button
+                                             className="close p-3"
+                                             onClick={() => handleRemoveRow(rowArray[0].id)}
+                                           >
+                                             <i className="fas fa-times"></i>
+                                           </button>
                                             )}
                                         </div>
                                     ))}

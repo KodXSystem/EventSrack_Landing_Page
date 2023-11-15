@@ -3,12 +3,14 @@ import React from 'react';
 import './style.css'; // Import your CSS file
 import Footer from '../layout/Footer';
 
-
+import { useLocation } from 'react-router-dom';
 const EventDetails = () => {
+  const location = useLocation();
+  const event = location?.state; 
+  console.log(location?.state);
   return (
     <>
       <section className="z-index-9 jarallax dark-background single-event-intro has-image-bg">
-    
         <img
           className="jarallax-img"
           src="/assets/wp-content/uploads/2019/12/vibra-mahou-fest-1-873x1024.jpg"
@@ -84,7 +86,7 @@ const EventDetails = () => {
                     $39 - $1,200{" "}
                   </h5>
                   <a
-                    href="#"
+                    href="/TicketBook"
                     className="btn-icon-right btn position-relative btn btn-danger fw-400 mt-3 lift view_tickets py-3"
                     style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 400, fontSize: '14px', color: '#ffffff', backgroundColor: '#d9072a' }}>
                     Book a Ticket{" "}

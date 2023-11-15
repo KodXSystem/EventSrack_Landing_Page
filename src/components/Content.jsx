@@ -71,7 +71,7 @@ export default function () {
 
   return (
     <div>
-      <section className="wrapper">
+      <section className="wrapper" style={{backgroundColor: "#E9EDF5"}}>
         <div className="container px-0">
           <section className="wpb-content-wrapper">
             <section
