@@ -70,7 +70,6 @@ export default function Event() {
     eventsChunks.push(events.slice(i, i + chunkSize));
   }
   return (
-
 <MDBContainer className="" style={{ marginBottom: '100px',marginTop:'-12px', marginLeft:'-2px'}}>
       <MDBCarousel showControls interval={3000} style={{marginTop:'-168px'}}>
         {eventsChunks.map((chunk, index) => (
@@ -87,9 +86,9 @@ export default function Event() {
                         <MDBCardText  style={{ color: 'white'}}>{event.price}</MDBCardText>
                         <MDBCardTitle style={{ color: 'white'}}>{event.eventName}</MDBCardTitle>
                         <MDBCardText style={{ color: 'white' }}>
-                        <i class="fe fe-calendar text-white opacity_60 fs-80 mr-2"></i>
+                        <i className="fe fe-calendar text-white opacity_60 fs-80 mr-2"></i>
                           {event.date} {} 
-                          <i class="fe fe-map-pin text-white opacity_60 fs-80 mr-2"></i>{event.location}
+                          <i className="fe fe-map-pin text-white opacity_60 fs-80 mr-2"></i>{event.location}
                           <br />
                           {/* <div>
                           <a href="#">Book ticket</a>

@@ -78,16 +78,15 @@ export default function () {
     setDateRange(dateRange);
     const formattedStartDate = dateRange[0]?.toLocaleDateString('en-US', {
       year: 'numeric',
-      month: 'short',
-      day: 'numeric',
-    });
+      month: '2-digit',
+      day: '2-digit',
+    }).replace(/\//g, '-');
     
     const formattedEndDate = dateRange[1]?.toLocaleDateString('en-US', {
       year: 'numeric',
-      month: 'short',
-      day: 'numeric',
-    });
-    
+      month: '2-digit',
+      day: '2-digit',
+    }).replace(/\//g, '-');
     setSearchData({
       ...searchData,
       startDate: formattedStartDate,
@@ -336,28 +335,28 @@ axios.post(apiUrl, searchData)
         {/* /container*/}
       </section>
       {/* /wrapper.section */}
-      <ul class="side-social-links">
-        <li class="pr-4">
+      <ul className="side-social-links">
+        <li className="pr-4">
           <span>Follow Us</span>
         </li>
         <li>
-          <a class="external d-inline-block px-4" href="#">
-            <i class="fe fe-facebook"></i>
+          <a className="external d-inline-block px-4" href="#">
+            <i className="fe fe-facebook"></i>
           </a>
         </li>
         <li>
-          <a class="external d-inline-block px-4" href="#">
-            <i class="fe fe-twitter"></i>
+          <a className="external d-inline-block px-4" href="#">
+            <i className="fe fe-twitter"></i>
           </a>
         </li>
         <li>
-          <a class="external d-inline-block px-4" href="#">
-            <i class="fe fe-youtube"></i>
+          <a className="external d-inline-block px-4" href="#">
+            <i className="fe fe-youtube"></i>
           </a>
         </li>
         <li>
-          <a class="external d-inline-block px-4" href="#">
-            <i class="fe fe-instagram"></i>
+          <a className="external d-inline-block px-4" href="#">
+            <i className="fe fe-instagram"></i>
           </a>
         </li>
       </ul>
