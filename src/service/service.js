@@ -7,6 +7,6 @@ export const getLocation = () => {
 export const getCategory = () => {
   return authAxios.get("/category");
 };
-export const getEvents = (data) => {
-  return authAxios.get("/category",{data});
+export const getSearch = (data) => {
+  return authAxios.post("/landingPage/search",data);
 };

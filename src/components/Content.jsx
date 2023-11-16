@@ -113,13 +113,13 @@ export default function () {
   }, [searchData, dateRange, setStateData]);
   const handleLocationChange = (e) => {
 
-    const Location = LocationApiData.find(item => item.id == e.target.value);
+    const Location = LocationApiData.find(item => item._id == e.target.value);
    
     if (Location) {
       setSearchData({
         ...searchData,
         selectedLocation: {
-          id: Location.id,
+          id: Location._id,
           name: Location.title
         }
       });
@@ -246,13 +246,13 @@ export default function () {
                                             className="chosen-select"
                                             name="city"
                                             onChange={(e)=>handleLocationChange(e)}
-                                            value={searchData.selectedLocation.id} 
+                                            value={searchData.selectedLocation._id} 
                                           >
                                             <option value="">
                                               Select Location
                                             </option>
                                             {LocationApiData?.map((item,index) => (
-                                              <option value={item.id} key={item.id}>
+                                              <option value={item._id} key={item._id}>
                                                {item.title}
                                               </option>
                                                  ))}
