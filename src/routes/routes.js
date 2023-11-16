@@ -6,12 +6,14 @@ import Header from './../layout/Header';
 import Footer from './../layout/Footer';
 import EventDetails from "../pages/EventDetails";
 import TicketBook from "../pages/TicketBook";
+import EventSearch from "../pages/EventSearch";
 const AppRoutes = () => {
    return (
       <Routes>
          <Route path="/" element={<Dashboard />} />
          <Route path="/EventDetails" element={<EventDetails />} />
-           <Route path="/TicketBook" element={<TicketBook />} />
+         <Route path="/TicketBook" element={<TicketBook />} />
+         <Route path="/EventSearch" element={<EventSearch />} />
       </Routes>
    );
 }
