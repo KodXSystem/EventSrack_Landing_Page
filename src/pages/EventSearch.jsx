@@ -40,7 +40,7 @@ export default function EventFound() {
     });
   };
 
-  console.log(searchData);
+  // console.log(searchData);
   const handleStateChange = (event) => {
     setSelectedState(event.target.value);
       setSearchData({

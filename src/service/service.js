@@ -1,8 +1,12 @@
-import authAxios from "src/utils/axios";
+import authAxios from "../utils/axios";
 
-export const getProducts = (data) => {
-  return authAxios.get("/landingPage/locations", { data });
+export const getLocation = () => {
+  return authAxios.get("/landingPage/locations");
 };
 
-
- 
+export const getCategory = () => {
+  return authAxios.get("/category");
+};
+export const getEvents = (data) => {
+  return authAxios.get("/category",{data});
+};

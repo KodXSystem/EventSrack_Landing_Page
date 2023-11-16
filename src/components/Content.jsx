@@ -10,29 +10,31 @@ import 'flatpickr/dist/themes/light.css';
 import Event from "./Event"
 import axios from 'axios';
 import moment from 'moment';
+import { getLocation,getCategory } from "../service/service";
 import { MDBCarousel, MDBCarouselItem, MDBContainer, MDBCol, MDBRow, MDBCard,
   MDBCardBody, MDBCardOverlay,MDBCardText,MDBCardTitle  } from 'mdb-react-ui-kit';
   
 export default function () {
   const [LocationApiData, setLocationApiData] = useState(null);
   const [CategoryApiData, setCategoryApiData] = useState(null);
-  // useEffect(() => {
-  //   axios.get('http://192.168.1.19:3012/api/landingPage/locations')
-  //     .then(response => {
-  //       setLocationApiData(response.data.data);
-  //     })
-  //     .catch(error => {
-  //       console.error('Error:', error);
-  //     });
-  //     axios.get('http://192.168.1.19:3012/api/category')
-  //     .then(response => {
-  //       setCategoryApiData(response.data.data);
-  //     })
-  //     .catch(error => {
-  //       console.error('Error:', error);
-  //     });
-  // }, []); 
-  // console.log(CategoryApiData);
+
+  useEffect(() => {
+    getLocation()
+      .then(response => {
+        setLocationApiData(response.data.data);
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+      getCategory()
+      .then(response => {
+        setCategoryApiData(response.data.data.data);
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+  }, []); 
+
   const [selectedLocation, setSelectedLocation] = useState('');
   const [stateDate, setStateData] = useState({});
   const [searchData, setSearchData] = useState({
@@ -103,30 +105,48 @@ export default function () {
       endDate: moment(dateRange[1]).format('YYYY-MM-DD'),
     });
   };
-  console.log(searchData);
   useEffect(() => {
     setStateData({
       ...searchData,
       date: dateRange,
     });
   }, [searchData, dateRange, setStateData]);
-  const handleStateChange = (event) => {
-    setSelectedLocation(event.target.value);
+  const handleLocationChange = (e) => {
+
+    const Location = LocationApiData.find(item => item.id == e.target.value);
+   
+    if (Location) {
       setSearchData({
-      ...searchData,
-      selectedLocation: event.target.value
-    })
+        ...searchData,
+        selectedLocation: {
+          id: Location.id,
+          name: Location.title
+        }
+      });
+  }
   } 
+  const handleCategory=(e)=>{
+    const selectedCategory = CategoryApiData.find(item => item._id === e.target.value);
+    if (selectedCategory) {
+      setSearchData({
+        ...searchData,
+        selectedCategory: {
+          id: selectedCategory._id,
+          name: selectedCategory.category_name
+        }
+      });
+  }
+  }
 
   const handleSearch=()=>{
-const apiUrl = 'https://example.com/api/data';
-axios.post(apiUrl, searchData)
-  .then(response => {
-    console.log('Response:', response.data);
-  })
-  .catch(error => {
-    console.error('Error:', error);
-  });
+// const apiUrl = 'https://example.com/api/data';
+// axios.post(apiUrl, searchData)
+//   .then(response => {
+//     console.log('Response:', response.data);
+//   })
+//   .catch(error => {
+//     console.error('Error:', error);
+//   });
   }
 
   return (
@@ -203,29 +223,17 @@ axios.post(apiUrl, searchData)
                                           <select
                                             className="chosen-select"
                                             name="category"
-                                          onChange={(e)=>  setSearchData({
-                                            ...searchData,
-                                            selectedCategory: e.target.value
-                                          })}
+                                          onChange={(e)=> handleCategory(e)}
+                                          value={searchData.selectedCategory._id} 
                                           >
                                             <option value={0}>
                                               Select Category
                                             </option>
-                                            <option value="arts-theater">
-                                              Arts &amp; Theater
-                                            </option>
-                                            <option value="concerts">
-                                              Concerts
-                                            </option>
-                                            <option value="conference">
-                                              Conference
-                                            </option>
-                                            <option value="family">
-                                              Family
-                                            </option>
-                                            <option value="festivals">
-                                              Festivals
-                                            </option>
+                                            {CategoryApiData?.map((item,index) => (
+                                              <option value={item._id} key={item._id}>
+                                               {item.category_name}
+                                              </option>
+                                                 ))}
                                           </select>
                                         </div>
                                         {/* End Filter */}
@@ -237,14 +245,14 @@ axios.post(apiUrl, searchData)
                                           <select
                                             className="chosen-select"
                                             name="city"
-                                            value={selectedLocation} 
-                                            onChange={handleStateChange}
+                                            onChange={(e)=>handleLocationChange(e)}
+                                            value={searchData.selectedLocation.id} 
                                           >
                                             <option value="">
                                               Select Location
                                             </option>
                                             {LocationApiData?.map((item,index) => (
-                                              <option value={item.id}>
+                                              <option value={item.id} key={item.id}>
                                                {item.title}
                                               </option>
                                                  ))}
