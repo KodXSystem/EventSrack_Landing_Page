@@ -3,21 +3,43 @@ import Typewriter from "typewriter-effect";
 import { useEffect, useState } from "react";
 import { useSpring, animated } from "react-spring";
 import { CSSTransition } from 'react-transition-group';
+import { Link } from 'react-router-dom';
 import Flatpickr from "react-flatpickr";
 import NaijaStates from 'naija-state-local-government';
 import 'flatpickr/dist/themes/light.css'; 
 import Event from "./Event"
 import axios from 'axios';
+import moment from 'moment';
 import { MDBCarousel, MDBCarouselItem, MDBContainer, MDBCol, MDBRow, MDBCard,
   MDBCardBody, MDBCardOverlay,MDBCardText,MDBCardTitle  } from 'mdb-react-ui-kit';
-import { json } from "react-router-dom";
+  
 export default function () {
-  const [selectedState, setSelectedState] = useState('');
+  const [LocationApiData, setLocationApiData] = useState(null);
+  const [CategoryApiData, setCategoryApiData] = useState(null);
+  // useEffect(() => {
+  //   axios.get('http://192.168.1.19:3012/api/landingPage/locations')
+  //     .then(response => {
+  //       setLocationApiData(response.data.data);
+  //     })
+  //     .catch(error => {
+  //       console.error('Error:', error);
+  //     });
+  //     axios.get('http://192.168.1.19:3012/api/category')
+  //     .then(response => {
+  //       setCategoryApiData(response.data.data);
+  //     })
+  //     .catch(error => {
+  //       console.error('Error:', error);
+  //     });
+  // }, []); 
+  // console.log(CategoryApiData);
+  const [selectedLocation, setSelectedLocation] = useState('');
+  const [stateDate, setStateData] = useState({});
   const [searchData, setSearchData] = useState({
          selectedCategory:"",
          selectedLocation:"",
          startDate:"",
-         endDate:""
+         endDate:"",
                });
 
   const [showForm, setShowForm] = useState(false);
@@ -61,10 +83,9 @@ export default function () {
   ];
 
   useEffect(() => {
-    const delay = 1000;
     const timer = setTimeout(() => {
       setShowForm(true);
-    }, delay);
+    }, 200);
 
     return () => clearTimeout(timer);
   }, []);
@@ -76,30 +97,27 @@ export default function () {
   const [dateRange, setDateRange] = useState([]);
   const handleDateChange = (dateRange) => {
     setDateRange(dateRange);
-    const formattedStartDate = dateRange[0]?.toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: '2-digit',
-      day: '2-digit',
-    }).replace(/\//g, '-');
-    
-    const formattedEndDate = dateRange[1]?.toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: '2-digit',
-      day: '2-digit',
-    }).replace(/\//g, '-');
     setSearchData({
       ...searchData,
-      startDate: formattedStartDate,
-      endDate: formattedEndDate,
+      startDate:  moment(dateRange[0]).format('YYYY-MM-DD'),
+      endDate: moment(dateRange[1]).format('YYYY-MM-DD'),
     });
   };
+  console.log(searchData);
+  useEffect(() => {
+    setStateData({
+      ...searchData,
+      date: dateRange,
+    });
+  }, [searchData, dateRange, setStateData]);
   const handleStateChange = (event) => {
-    setSelectedState(event.target.value);
+    setSelectedLocation(event.target.value);
       setSearchData({
       ...searchData,
       selectedLocation: event.target.value
     })
   } 
+
   const handleSearch=()=>{
 const apiUrl = 'https://example.com/api/data';
 axios.post(apiUrl, searchData)
@@ -110,7 +128,7 @@ axios.post(apiUrl, searchData)
     console.error('Error:', error);
   });
   }
-  console.log(searchData);
+
   return (
     <div>
       <section className="wrapper" style={{backgroundColor: "#E9EDF5"}}>
@@ -219,15 +237,15 @@ axios.post(apiUrl, searchData)
                                           <select
                                             className="chosen-select"
                                             name="city"
-                                            value={selectedState} 
+                                            value={selectedLocation} 
                                             onChange={handleStateChange}
                                           >
                                             <option value="">
                                               Select Location
                                             </option>
-                                            {NaijaStates.states()?.map((state,index) => (
-                                              <option value={state}>
-                                               {state}
+                                            {LocationApiData?.map((item,index) => (
+                                              <option value={item.id}>
+                                               {item.title}
                                               </option>
                                                  ))}
                                           </select>
@@ -257,14 +275,15 @@ axios.post(apiUrl, searchData)
                                     </div>
                                   </div>
                                   <div className="col-sm-auto">
-                                    <a
+                                    <Link
                                       id="submit-search-events"
-                                      // href="#"
+                                      to="/EventSearch"
+                                      state={stateDate}
                                       onClick={handleSearch}
                                       className="btn btn-sm btn-danger fw-500 text-uppercase w-100 mb-20"
                                     >
                                       Search{" "}
-                                    </a>
+                                    </Link>
                                   </div>
                                 </div>
                               </animated.form>
