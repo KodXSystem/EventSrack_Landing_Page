@@ -102,7 +102,7 @@ function Footer() {
                         </p>
                     </div>
                     <div className="col-12 col-md-6 col-lg-4 mb-6">
-                        <div className="sidebar w-100" style={{ marginTop: '-490px' }}>
+                        <div className="sidebar w-100" style={{ marginTop: '-520px' }}>
                             {/* Sidebar */}
                             <div className="widget_text widget widget_custom_html">
                                 <div className="widget_text widget-content ">
@@ -110,7 +110,7 @@ function Footer() {
                                         <h5 className="mb-5 text-uppercase ls-1" style={{ fontWeight: '250' }}>Newsletter</h5>
                                     </div>
                                     <div className="textwidget custom-html-widget">
-                                        <div className="input-group">
+                                        <div className="input">
                                             <input
                                                 type="text"
                                                 className="form-control no-radius"

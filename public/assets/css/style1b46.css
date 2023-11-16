@@ -736,6 +736,20 @@ a.bg-dark:focus {
 	background-color: #292929 !important;
 }
 
+  
+.close {
+    position: absolute;
+    top: 0;
+    padding: 4px;
+    right: 0;
+    color: #000; /* Default color */
+    transition: color 0.3s; /* Adding a smooth color transition */
+  }
+
+  .close:hover {
+    color: red; /* Color change on hover */
+  }
+  
 .bg-image {
 	-webkit-background-size: 100%;
 	-moz-background-size: 100%;
@@ -746,7 +760,7 @@ a.bg-dark:focus {
 	-o-background-size: cover;
 	background-size: cover;
 	background-position: center;
-	min-height: 444px;
+	min-height: 44px;
 	display: inline-block;
 	width: 100%;
 }
@@ -978,7 +992,10 @@ body.admin-bar #header.clone-fixed.slideDown {
 	display: block;
 	margin-bottom: 1px;
 }
-
+.bg-light-darkened {
+	background-color: rgb(244, 244, 244); /* This is a slightly darker shade of gray */
+	/* Add any other styles you want for the darkened background */
+  }
 .header-main .header-main-phone .phone .phone-number {
 	font-size: 16px;
 	line-height: 18px;
