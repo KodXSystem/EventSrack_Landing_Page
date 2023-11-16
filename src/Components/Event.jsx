@@ -1,7 +1,7 @@
 import React from 'react'
 import { MDBCarousel, MDBCarouselItem, MDBContainer, MDBCol, MDBRow, MDBCard,
     MDBCardBody, MDBCardOverlay,MDBCardText,MDBCardTitle, MDBCardImage  } from 'mdb-react-ui-kit';
-import './style.css' 
+
 import EventDetails from '../pages/EventDetails';
 import {useRef,useEffect,useState} from 'react';
 import { Link } from 'react-router-dom';
@@ -75,27 +75,30 @@ export default function Event() {
         },
       ];
   let eventsChunks=[]
-  const isMobile = window.innerWidth <= 576; 
+  const isMobile = window.innerWidth <= 771; 
   const chunkSize = isMobile ? 1 : 3; 
   for (let i = 0; i < events.length; i += chunkSize) {
     eventsChunks.push(events.slice(i, i + chunkSize));
   }
   return (
-<MDBContainer className="" style={{ marginBottom: '100px',marginTop:'-12px', marginLeft:'-2px'}}>
+<MDBContainer  style={{ marginBottom: '20px',marginTop:'-12px', marginLeft:'15px'}}>
       <MDBCarousel showControls style={{marginTop:'-168px'}}>
         {eventsChunks.map((chunk, index) => (
-          <MDBCarouselItem  key={index + 1} itemId={index + 1} style={{marginTop:'167px'}} className={index === 0 ? 'active' : ''} interval={5000} >
+          <MDBCarouselItem  key={index + 1} itemId={index + 1} style={{marginTop:'177px'}} className={index === 0 ? 'active' : ''} interval={5000} >
             <MDBRow >
               {chunk.map(event => (
                 <MDBCol key={event.id}  >
                   <Link to={{ pathname: `/EventDetails`, state: events }}>
                   <MDBCard>
-                    <div className='bg-image hover-zoom'>
+                    <div  class="bg-image hover-overlay ripple">
                     < MDBCardImage src={event.imageSrc} />
+                    <a href="#!">
+              <div className="mask" style={{backgroundColor: "rgba(57, 192, 237, 0.2)"}}></div>
+                     </a>
                     </div>                 
                     < MDBCardOverlay  >
                       <MDBCardBody style={{bottom:"0px"}} >
-                        <MDBCardText  style={{ color: 'white'}}>{event.price}</MDBCardText>
+                        <MDBCardText  style={{ color: 'white',position:'relative'}}>{event.price}</MDBCardText>
                         <MDBCardTitle style={{ color: 'white'}}>{event.eventName}</MDBCardTitle>
                         <MDBCardText style={{ color: 'white' }}>
                         <i class="fe fe-calendar text-white opacity_60 fs-80 mr-2"></i>

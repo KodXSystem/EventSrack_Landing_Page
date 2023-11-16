@@ -10,7 +10,7 @@ import {
     MDBCard,
     MDBCardBody
 } from "mdb-react-ui-kit";
-import "./style.css"
+
 export default function Testimonials() {
     return (
 
