@@ -487,12 +487,12 @@ export default function TicketBook() {
                   />
                 </form> */}
                                 </div>
-                                <div className="col-12 text-right pt-4 pb-8">
+                                <div className="col-12 text-right pt- pb-8">
                                     <a
                                         href="#"
                                         id="place-order"
-                                        className="btn position-relative btn btn-danger fw-400 mt-3 lift view_tickets py-3 px-10"
-                                        style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 400, fontSize: '14px', color: '#ffffff', backgroundColor: '#d9072a' }}>
+                                        className="btn position-relative btn btn-danger fw-400  lift view_tickets py-3 px-10"
+                                        style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 400,marginTop:'-70px', fontSize: '14px', color: '#ffffff', backgroundColor: '#d9072a' }}>
 
                                         Place Order
                                     </a>

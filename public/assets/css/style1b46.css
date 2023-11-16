@@ -464,6 +464,16 @@ body {
 	font-weight: 300;
 	overflow-x: hidden;
 }
+/* Initially white text */
+a.text-white {
+	color: #fff; /* Set the text color to white */
+	transition: background-color 0.3s; /* Smooth transition for background color change */
+  }
+  
+  a.text-white:hover {
+	background-color: red; /* Change background color to red on hover */
+  }
+  
 
 body a {
 	color: #de2358;
