@@ -30,7 +30,7 @@ export default function Event() {
           price: '$39 - $1,200',
           eventName: 'Vibra Mahou Fest',
           date: 'Jul 16',
-          location: ' Grant Park, Chicago  ',
+          location: ' Grant Park,  ',
         },
         {
           id: 2,
@@ -44,7 +44,7 @@ export default function Event() {
           id: 3,
           imageSrc: 'assets/wp-content/uploads/2019/12/sesame-street-live-3-873x1024.jpg',
           price: '$45',
-          eventName: '  Sesame Street Live! Make Your Magic',
+          eventName: '  Sesame Street Live! Make ',
           date: ' Sep 26',
           location: 'Grand Chapiteau',
         },
@@ -97,17 +97,17 @@ export default function Event() {
                      </a>
                     </div>                 
                     < MDBCardOverlay  >
-                      <MDBCardBody style={{bottom:"0px"}} >
-                        <MDBCardText  style={{ color: 'white',position:'relative'}}>{event.price}</MDBCardText>
+                      <MDBCardBody style={{bottom:"0px" ,marginTop:'110px'}} >
+                        <MDBCardText  style={{ color: 'white',position:'relative', marginBottom:'-8px'}}>{event.price}</MDBCardText>
                         <MDBCardTitle style={{ color: 'white'}}>{event.eventName}</MDBCardTitle>
                         <MDBCardText style={{ color: 'white' }}>
                         <i className="fe fe-calendar text-white opacity_60 fs-80 mr-2"></i>
                           {event.date} {} 
                           <i className="fe fe-map-pin text-white opacity_60 fs-80 mr-2"></i>{event.location}
                           <br />
-                          {/* <div>
-                          <a href="#">Book ticket</a>
-                          </div> */}
+                          <div>
+                          <a href="#"className='text-white'>Book ticket</a>
+                          </div>
                       </MDBCardText>
                       </MDBCardBody>
                     </ MDBCardOverlay>
