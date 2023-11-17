@@ -235,7 +235,7 @@ export default function () {
                                               </option>
                                                  ))}
                                           </select>
-                                        </div>
+                                        </div> 
                                         {/* End Filter */}
                                       </div>
                                       <div className="col-md-4 col-sm-12" >
