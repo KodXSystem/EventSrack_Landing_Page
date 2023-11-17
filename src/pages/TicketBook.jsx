@@ -233,21 +233,15 @@ export default function TicketBook() {
                             <h4 style={{ fontFamily: 'Montserrat, sans-serif', fontStyle: 'normal', fontWeight: 500, fontSize: '30px', lineHeight: '36px', color: '#16151a' }}>Payment Method</h4>
                             <div className="row payment-types pt-4 payment-wrapper justify-content-end">
                                 <div className="col-12 col-md-6 col-lg-4 rt-custom-control custom-radio mb-6">
-                                    <input
-                                        type="radio"
-                                        id="creditCardPayment"
-                                        name="payment"
-                                        className="custom-control-input"
-                                        defaultChecked=""
-                                        defaultValue="Stripe"
-                                    />
-                                    <label
-                                        className="w-50 rt-custom-control-label cursor-pointer d-inline-flex px-6 py-2 rounded align-items-center justify-content-center text-muted fw-40 lh-1"
+                                    <div
+                                        className=" rt-custom-control-label   px-6 py-1 rounded align-items-center justify-content-center text-muted fw-40 lh-1"
+                                        style={{ width: '200px' }}
                                         htmlFor="creditCardPayment"
                                     >
                                  <img src={Paystack}
+                                style={{ width: '300px' }} // Change this value according to your preference
                                  alt="Logo"/>
-                                    </label>
+                                    </div>
                                 </div>
                                 <div className="col-12 col-md-6 col-lg-4 rt-custom-control custom-radio mb-6">
                                 </div>

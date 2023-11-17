@@ -3,12 +3,11 @@ import React from 'react';
 function Footer() {
     return (
 
-        <div className="royaltickets-page-footer">
+        <div className="royaltickets-page-footer p-">
             <div className="container footer-container mt-12">
                 <div className="row">
                     <div className="col-lg-8 col-md-6">
                         <div className="row">
-
                             <div className="col-lg-4 col-md-6 mb-6">
                                 <div className="sidebar w-100">
                                     {/* Sidebar */}
@@ -55,14 +54,13 @@ function Footer() {
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                     </div>
 
                 </div>
             </div>
             <div className="container footer-container">
-                <div className="row justify-content-between mt-10 mb-8">
+                <div className="row justify-content-between mt-12 mb-30">
                     <div className="col-12 col-md-6 mb-6">
                         <div className="border-bottom mb-7 pb-4">
                             <a

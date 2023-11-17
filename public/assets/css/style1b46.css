@@ -473,7 +473,7 @@ a.text-white {
   a.text-white:hover {
 	background-color: red; /* Change background color to red on hover */
   }
-  
+
 
 body a {
 	color: #de2358;
@@ -23884,6 +23884,8 @@ i.close {
 	background-image: url(../images/payment-types/discover.svg);
 	background-size: 34px 22px;
 }
+/* Example of media query for specific screen size */
+
 
 .rt-custom-control .rt-custom-control-label {
 	border: solid 2px #e0e0e0;

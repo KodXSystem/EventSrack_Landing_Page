@@ -1,7 +1,6 @@
 import React from 'react'
 import { MDBCarousel, MDBCarouselItem, MDBContainer, MDBCol, MDBRow, MDBCard,
     MDBCardBody, MDBCardOverlay,MDBCardText,MDBCardTitle, MDBCardImage  } from 'mdb-react-ui-kit';
-
 import EventDetails from '../pages/EventDetails';
 import {useRef,useEffect,useState} from 'react';
 import { Link } from 'react-router-dom';
@@ -23,6 +22,7 @@ export default function Event() {
       window.removeEventListener('resize', resizeListener);
     };
   }, []); 
+  
     const events = [
         {
           id: 1,
@@ -44,7 +44,7 @@ export default function Event() {
           id: 3,
           imageSrc: 'assets/wp-content/uploads/2019/12/sesame-street-live-3-873x1024.jpg',
           price: '$45',
-          eventName: '  Sesame Street Live! Make ',
+          eventName: '  Sesame Street Live!',
           date: ' Sep 26',
           location: 'Grand Chapiteau',
         },
@@ -97,7 +97,8 @@ export default function Event() {
                      </a>
                     </div>                 
                     < MDBCardOverlay  >
-                      <MDBCardBody style={{bottom:"0px" ,marginTop:'110px'}} >
+                    
+                      <MDBCardBody style={{bottom:"0px" }} ><div style={{ marginTop: '110px' }}>
                         <MDBCardText  style={{ color: 'white',position:'relative', marginBottom:'-8px'}}>{event.price}</MDBCardText>
                         <MDBCardTitle style={{ color: 'white'}}>{event.eventName}</MDBCardTitle>
                         <MDBCardText style={{ color: 'white' }}>
@@ -109,7 +110,7 @@ export default function Event() {
                           <a href="#"className='text-white'>Book ticket</a>
                           </div>
                       </MDBCardText>
-                      </MDBCardBody>
+                     </div> </MDBCardBody>
                     </ MDBCardOverlay>
                   </MDBCard></Link>
                 </MDBCol>
