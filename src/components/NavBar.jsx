@@ -6,7 +6,7 @@ export default function NavBar() {
     <div className="container-wide">
       <div className="d-flex justify-content-between align-items-center h-100 position-relative px-lg-4">
         <div className="logo-main">
-          <a className="logo-wrapper logo-dark" href="../index.html">
+          <a className="logo-wrapper logo-dark" href="#">
             <img
                src={AppLogo}
               alt="Logo"

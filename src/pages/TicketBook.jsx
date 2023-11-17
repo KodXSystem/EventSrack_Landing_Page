@@ -230,109 +230,178 @@ export default function TicketBook() {
                                         <span className="credit-card opacity_40" title="credit-card" />{" "}
                                         Pay Stack{" "}
                                     </label>
-                                    <form
-                                        name="royaltickets_checkout"
-                                        method="post"
-                                        className="d-none royaltickets_payment_form"
-                                        action="https://royaltickets.fantasythemes.net/demo06/stripe-charge-page/"
-                                    >
-                                        <div className="payment-method-block stripe-method">
-                                            <div className="form-group">
-                                                <div className="royaltickets_stripe_simple"></div>
-                                                <input
-                                                    type="hidden"
-                                                    id="order_pay"
-                                                    name="order_pay"
-                                                    defaultValue={1}
-                                                />
-                                                <input
-                                                    type="hidden"
-                                                    name="title"
-                                                    className="stripe_title"
-                                                    defaultValue="Day 1: Standard Ticket"
-                                                />
-                                                <input
-                                                    type="hidden"
-                                                    name="amount"
-                                                    className="stripe_amount"
-                                                    defaultValue={1}
-                                                />
-                                                <input
-                                                    type="hidden"
-                                                    id="buyer_message"
-                                                    name="buyer_message"
-                                                    defaultValue=""
-                                                />
-                                                <input type="hidden" name="userID" defaultValue={0} />
-                                                <input
-                                                    type="hidden"
-                                                    id="pay_amount"
-                                                    className="stripe_pay_amount"
-                                                    name="pay_amount"
-                                                    defaultValue={149}
-                                                />
-                                                <input
-                                                    type="hidden"
-                                                    id="stripeToken"
-                                                    name="stripeToken"
-                                                    defaultValue=""
-                                                />
-                                                <input
-                                                    type="hidden"
-                                                    id="stripeEmail"
-                                                    name="stripeEmail"
-                                                    defaultValue=""
-                                                />
-                                                <input
-                                                    type="hidden"
-                                                    id="stripeName"
-                                                    name="stripeName"
-                                                    defaultValue=""
-                                                />
-                                                <input
-                                                    type="hidden"
-                                                    id="stripePhone"
-                                                    name="stripePhone"
-                                                    defaultValue=""
-                                                />
-                                                <input
-                                                    type="hidden"
-                                                    id="parentTicketID"
-                                                    name="parentTicketID"
-                                                    defaultValue={259}
-                                                />
-                                                <input
-                                                    type="hidden"
-                                                    id="ticketID"
-                                                    name="ticketID"
-                                                    defaultValue={260}
-                                                />
-                                                <input
-                                                    type="hidden"
-                                                    id="eventID"
-                                                    name="eventID"
-                                                    defaultValue={258}
-                                                />
-                                                <input
-                                                    type="hidden"
-                                                    id="return_link"
-                                                    name="return_link"
-                                                    defaultValue="https://royaltickets.fantasythemes.net/demo06/ticket/it-conference-april-17-2048-800-am/"
-                                                />
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                                <div className="col-12 col-md-6 col-lg-4 rt-custom-control custom-radio mb-6">  
+                                    
                                 </div>
                                 <div className="col-12 col-md-6 col-lg-4 rt-custom-control custom-radio mb-6">
+                                    {/* <input
+                  type="radio"
+                  id="paypalPayment"
+                  name="payment"
+                  className="custom-control-input"
+                  defaultValue="PayPal"
+                />
+                <label
+                  className="w-100 rt-custom-control-label cursor-pointer d-inline-flex px-4 py-4 rounded align-items-center justify-content-center text-muted fw-40 lh-1"
+                  htmlFor="paypalPayment"
+                >
+                  <span className="paypal" title="PayPal" />
+                </label>
+                <input
+                  type="hidden"
+                  name="paypal-security"
+                  id="paypal-security"
+                  defaultValue="6f2f61a523"
+                />
+                <input
+                  type="hidden"
+                  name="title"
+                  className="paypal_title"
+                  defaultValue="Days 1 - 2: Vip Ticket"
+                />
+                <input
+                  type="hidden"
+                  name="amount"
+                  className="paypal_amount"
+                  defaultValue={1}
+                />
+                <input
+                  type="hidden"
+                  id="paypal_amount"
+                  className="paypal_pay_amount"
+                  name="pay_amount"
+                  defaultValue={300}
+                />
+                <input
+                  type="hidden"
+                  id="paypal_parentTicketID"
+                  name="paypal_parentTicketID"
+                  defaultValue={259}
+                />
+                <input
+                  type="hidden"
+                  id="paypal_ticketID"
+                  name="paypal_ticketID"
+                  defaultValue={260}
+                />
+                <input
+                  type="hidden"
+                  id="paypal_eventID"
+                  name="paypal_eventID"
+                  defaultValue={258}
+                />
+                <input
+                  type="hidden"
+                  id="paypal_return_link"
+                  name="return_link"
+                  defaultValue=""
+                /> */}
                                 </div>
-                                <div className="col-12 text-right pt-4 pb-8">
+                                <div className="col-12 col-md-6 col-lg-4 rt-custom-control custom-radio mb-6">
+                                    {/* <input
+                  type="radio"
+                  id="payfastPayment"
+                  name="payment"
+                  className="custom-control-input"
+                  defaultValue="PayFast"
+                />
+                <label
+                  className="w-100 rt-custom-control-label cursor-pointer d-inline-flex px-4 py-4 rounded align-items-center justify-content-center text-muted fw-40 lh-1"
+                  htmlFor="payfastPayment"
+                >
+                  <span className="payfast" title="PayFast" />
+                </label>
+                <form
+                  id="payfast-buy-now-form"
+                  action="https://sandbox.payfast.co.za/eng/process"
+                  method="post"
+                >
+                  <input
+                    name="merchant_id"
+                    type="hidden"
+                    defaultValue={10010040}
+                  />
+                  <input
+                    name="merchant_key"
+                    type="hidden"
+                    defaultValue="1vjshc8ss3fdo"
+                  />
+                  <input
+                    name="return_url"
+                    type="hidden"
+                    defaultValue="https://royaltickets.fantasythemes.net/demo06/ticket/it-conference-april-17-2048-800-am/?payfast=success"
+                  />
+                  <input
+                    name="cancel_url"
+                    type="hidden"
+                    defaultValue="https://royaltickets.fantasythemes.net/demo06/ticket/it-conference-april-17-2048-800-am/"
+                  />
+                  <input
+                    name="notify_url"
+                    type="hidden"
+                    defaultValue="https://royaltickets.fantasythemes.net/demo01/wp-content/plugins/royaltickets/functions/payfast-charge.php"
+                  />
+                  <input name="name_first" type="hidden" defaultValue="FName4" />
+                  <input name="name_last" type="hidden" defaultValue="LName4" />
+                  <input
+                    name="m_payment_id"
+                    id="payfast_id"
+                    type="hidden"
+                    defaultValue={260}
+                  />
+                  <input
+                    name="amount"
+                    id="payfast_price"
+                    type="hidden"
+                    defaultValue={300.0}
+                  />
+                  <input
+                    name="item_name"
+                    id="payfast_name"
+                    type="hidden"
+                    defaultValue="Days 1 - 2: Vip Ticket"
+                  />
+                  <input name="item_description" type="hidden" defaultValue="" />
+                  <input name="custom_int1" type="hidden" defaultValue={259} />
+                  <input
+                    name="custom_int2"
+                    id="payfast_ticketID"
+                    type="hidden"
+                    defaultValue={260}
+                  />
+                  <input name="custom_int3" type="hidden" defaultValue={258} />
+                  <input
+                    name="custom_int4"
+                    id="payfast_amount"
+                    type="hidden"
+                    defaultValue={1}
+                  />
+                  <input name="custom_int5" type="hidden" defaultValue={0} />
+                  <input
+                    name="custom_str1"
+                    id="payfast_buyer_name"
+                    type="hidden"
+                    defaultValue=""
+                  />
+                  <input
+                    name="custom_str2"
+                    id="payfast_buyer_phone"
+                    type="hidden"
+                    defaultValue=""
+                  />
+                  <input
+                    name="email_address"
+                    id="payfast_buyer_email"
+                    type="hidden"
+                    defaultValue="user4@user-mail.net"
+                  />
+                </form> */}
+                                </div>
+                                <div className="col-12 text-right pt- pb-8">
                                     <a
                                         href="#"
                                         id="place-order"
-                                        className="btn position-relative btn btn-danger fw-400 mt-3 lift view_tickets py-3 px-10"
-                                        style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 400, fontSize: '14px', color: '#ffffff', backgroundColor: '#d9072a' }}>
+                                        className="btn position-relative btn btn-danger fw-400  lift view_tickets py-3 px-10"
+                                        style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 400,marginTop:'-70px', fontSize: '14px', color: '#ffffff', backgroundColor: '#d9072a' }}>
 
                                         Place Order
                                     </a>
