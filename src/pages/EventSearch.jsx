@@ -6,6 +6,7 @@ import NaijaStates from 'naija-state-local-government';
 import axios from 'axios';
 import 'flatpickr/dist/themes/light.css';
 import moment from 'moment';
+import Event from "../components/Event"
 import { useLocation } from 'react-router-dom';
 import { getSearch,getLocation,getCategory } from '../service/service';
 
@@ -13,14 +14,14 @@ export default function EventFound() {
   let { state } = useLocation();
   const [searchData, setSearchData] = useState({
     selectedCategory: state?.selectedCategory,
-    selectedLocation: "",
-    startDate: "",
-    endDate: ""
-  });
-  const [selectedState, setSelectedState] = useState(state?.selectedLocation);
+    selectedLocation: state.selectedLocation,
+    startDate: state.startDate,
+    endDate: state.endDate});
+  console.log(state);
+  const [selectedState, setSelectedState] = useState(state.selectedLocation.name);
   const [dateRange, setDateRange] = useState(state?.date);
   const [showForm, setShowForm] = useState(false);
-
+  const [eventsData, setEventsData] = useState([]);
   const [LocationApiData, setLocationApiData] = useState(null);
   const [CategoryApiData, setCategoryApiData] = useState(null);
 
@@ -39,6 +40,7 @@ export default function EventFound() {
       .catch(error => {
         console.error('Error:', error);
       });
+      handleSearch();
   }, []); 
 
   useEffect(() => {
@@ -63,7 +65,7 @@ export default function EventFound() {
     });
   };
 
-  // console.log(searchData);
+  console.log(searchData);
   const handleStateChange = (e) => {
     const Location = LocationApiData.find(item => item._id == e.target.value);
    
@@ -92,19 +94,20 @@ export default function EventFound() {
   const handleSearch = () => {
     getSearch(searchData)
       .then(response => {
-        console.log('Response:', response.data);
+        setEventsData(response.data.data)
       })
       .catch(error => {
         console.error('Error:', error);
       });
   }
+  // console.log(eventsData);
   return (
     <>
       <section className="royaltickets-page-title mt-10">
         <div className="container px-0 d-flex justify-content-between align-items-end">
           <h3 className="mb-0 lh-1 w-auto d-inline-block">Simple Layout</h3>
           <span className="float-right fs-16 text-muted lh-1 mb-0 text-right">
-            6 Events found
+            {eventsData.length} Events found
           </span>
         </div>
       </section>
@@ -126,11 +129,11 @@ export default function EventFound() {
                         {/* Filter */}
                         <div className="position-relative">
                           <div className="title">What</div>
-                          <select
+                                           <select
                                             className="chosen-select"
-                                            name="category"
-                                          onChange={(e)=> handleCategory(e)}
-                                          value={searchData.selectedCategory._id} 
+                        
+                                            onChange={(e)=> handleCategory(e)}
+                                            Value={searchData?.selectedCategory.name} 
                                           >
                                             <option value={0}>
                                               Select Category
@@ -150,11 +153,10 @@ export default function EventFound() {
                           <div className="title">Where</div>
                           <select
                             className="chosen-select"
-                            name="city"
-                            value={searchData.selectedLocation._id} 
                             onChange={(e)=>handleStateChange(e)}
+                            value={searchData?.selectedLocation.name} 
                           >
-                            <option value="">
+                            <option value={0}>
                               Select Location
                             </option>
                             {LocationApiData?.map((item,index) => (
@@ -200,7 +202,11 @@ export default function EventFound() {
                 </div>
               </animated.form>
             </div>
+     
           </div>
+        </div>
+        <div style={{marginTop:'170px',marginLeft:"95px"}}>
+        {eventsData?.length>0 ?    <Event  Events ={eventsData}/>: <h4>No Event Found</h4>}
         </div>
       </section>
     </>

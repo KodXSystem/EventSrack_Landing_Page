@@ -155,9 +155,6 @@ export default function () {
         <div className="container px-0">
           <section className="wpb-content-wrapper">
             <section
-              data-vc-full-width="true"
-              data-vc-full-width-init="false"
-              data-vc-parallax="1.5"
               className="vc_section overflow-visible vc_custom_1585643340020 vc_section-has-fill vc_section-o-content-bottom vc_section-flex vc_general vc_parallax vc_parallax-content-moving"
             >
               <div className="vc_row wpb_row vc_row-fluid z-index-9">
