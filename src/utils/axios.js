@@ -20,7 +20,6 @@ authAxios.interceptors.request.use(
     Promise.reject(error);
   }
 );
- 
 //Add a response interceptor
 
 authAxios.interceptors.response.use(

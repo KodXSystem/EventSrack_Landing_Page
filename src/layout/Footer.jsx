@@ -8,7 +8,6 @@ function Footer() {
                 <div className="row">
                     <div className="col-lg-8 col-md-6">
                         <div className="row">
-
                             <div className="col-lg-4 col-md-6 mb-6">
                                 <div className="sidebar w-100">
                                     {/* Sidebar */}

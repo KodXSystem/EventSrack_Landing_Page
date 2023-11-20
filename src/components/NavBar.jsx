@@ -17,7 +17,7 @@ export default function NavBar() {
               src={AppLogo}
               alt="Logo"
             />{" "}
-          </a> */}
+          </a> */} 
         </div>
         <div className="royaltickets-menu-wrapper">
           <a

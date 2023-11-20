@@ -1,50 +1,12 @@
 import React from "react";
 import Typewriter from "typewriter-effect";
-import { useEffect, useState } from "react";
-import { useSpring, animated } from "react-spring";
 import { CSSTransition } from 'react-transition-group';
-import { Link } from 'react-router-dom';
-import Flatpickr from "react-flatpickr";
-import NaijaStates from 'naija-state-local-government';
 import 'flatpickr/dist/themes/light.css'; 
 import Event from "./Event"
-import axios from 'axios';
-import moment from 'moment';
-import { getLocation,getCategory } from "../service/service";
-import { MDBCarousel, MDBCarouselItem, MDBContainer, MDBCol, MDBRow, MDBCard,
-  MDBCardBody, MDBCardOverlay,MDBCardText,MDBCardTitle  } from 'mdb-react-ui-kit';
+import Search from "../components/Search"
   
 export default function () {
-  const [LocationApiData, setLocationApiData] = useState(null);
-  const [CategoryApiData, setCategoryApiData] = useState(null);
-
-  useEffect(() => {
-    getLocation()
-      .then(response => {
-        setLocationApiData(response.data.data);
-      })
-      .catch(error => {
-        console.error('Error:', error);
-      });
-      getCategory()
-      .then(response => {
-        setCategoryApiData(response.data.data.data);
-      })
-      .catch(error => {
-        console.error('Error:', error);
-      });
-  }, []); 
-
-  const [selectedLocation, setSelectedLocation] = useState('');
-  const [stateDate, setStateData] = useState({});
-  const [searchData, setSearchData] = useState({
-         selectedCategory:"",
-         selectedLocation:"",
-         startDate:"",
-         endDate:"",
-               });
-
-  const [showForm, setShowForm] = useState(false);
+ 
   const partners = [
     {
       imageSrc: 'assets/wp-content/uploads/2020/03/brand_1_white.png',
@@ -83,71 +45,6 @@ export default function () {
     },
     // Add more partners following the same pattern
   ];
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowForm(true);
-    }, 200);
-
-    return () => clearTimeout(timer);
-  }, []);
-
-  const fadeIn = useSpring({
-    opacity: showForm ? 1 : 0,
-    from: { opacity: 0 },
-  });
-  const [dateRange, setDateRange] = useState([]);
-  const handleDateChange = (dateRange) => {
-    setDateRange(dateRange);
-    setSearchData({
-      ...searchData,
-      startDate:  moment(dateRange[0]).format('YYYY-MM-DD'),
-      endDate: moment(dateRange[1]).format('YYYY-MM-DD'),
-    });
-  };
-  useEffect(() => {
-    setStateData({
-      ...searchData,
-      date: dateRange,
-    });
-  }, [searchData, dateRange, setStateData]);
-  const handleLocationChange = (e) => {
-
-    const Location = LocationApiData.find(item => item._id == e.target.value);
-   
-    if (Location) {
-      setSearchData({
-        ...searchData,
-        selectedLocation: {
-          id: Location._id,
-          name: Location.title
-        }
-      });
-  }
-  } 
-  const handleCategory=(e)=>{
-    const selectedCategory = CategoryApiData.find(item => item._id === e.target.value);
-    if (selectedCategory) {
-      setSearchData({
-        ...searchData,
-        selectedCategory: {
-          id: selectedCategory._id,
-          name: selectedCategory.category_name
-        }
-      });
-  }
-  }
-
-  const handleSearch=()=>{
-// const apiUrl = 'https://example.com/api/data';
-// axios.post(apiUrl, searchData)
-//   .then(response => {
-//     console.log('Response:', response.data);
-//   })
-//   .catch(error => {
-//     console.error('Error:', error);
-//   });
-  }
 
   return (
     <div>
@@ -199,108 +96,7 @@ export default function () {
                         </div>
                       </div>
                       <hr />
-                      <div className="vc_row wpb_row vc_inner vc_row-fluid vc_custom_1584895764298">
-                        <div className="wpb_column vc_column_container vc_col-sm-12 vc_col-lg-10">
-                          <div className="vc_column-inner">
-                            <div className="wpb_wrapper">
-                              <animated.form
-                                id="royaltickets-search-form"
-                                className="overflow-visible"
-                                action="https://royaltickets.fantasythemes.net/demo06/simple-layout"
-                                method="GET"
-                                style={fadeIn}
-                              >
-                                <div className="form-row shadow bg-white rounded px-6 pt-7 pb-4 overflow-visible events-search-form">
-                                  <div className="col-lg mb-3 mb-lg-0">
-                                    <div className="form-row">
-                                      <div className="col-md-4 col-sm-12" >
-                                        {/* Filter */}
-                                        <div className="position-relative">
-                                          <div className="title">What</div>
-                                          <select
-                                            className="chosen-select"
-                                            name="category"
-                                          onChange={(e)=> handleCategory(e)}
-                                          value={searchData.selectedCategory._id} 
-                                          >
-                                            <option value={0}>
-                                              Select Category
-                                            </option>
-                                            {CategoryApiData?.map((item,index) => (
-                                              <option value={item._id} key={item._id}>
-                                               {item.category_name}
-                                              </option>
-                                                 ))}
-                                          </select>
-                                        </div>
-                                        {/* End Filter */}
-                                      </div>
-                                      <div className="col-md-4 col-sm-12" >
-                                        {/* Filter */}
-                                        <div className="position-relative">
-                                          <div className="title">Where</div>
-                                          <select
-                                            className="chosen-select"
-                                            name="city"
-                                            onChange={(e)=>handleLocationChange(e)}
-                                            value={searchData.selectedLocation._id} 
-                                          >
-                                            <option value="">
-                                              Select Location
-                                            </option>
-                                            {LocationApiData?.map((item,index) => (
-                                              <option value={item._id} key={item._id}>
-                                               {item.title}
-                                              </option>
-                                                 ))}
-                                          </select>
-                                        </div>
-                                        
-                                        {/* End Filter */}
-                                      </div>
-                                      <div className="col-md-4 col-sm-12" >
-                                        
-                                        {/* Filter */}
-                                        <div className="position-relative">
-                                          <div className="title">When</div>
-                                          <Flatpickr
-                                           style={{border :'1px solid #999'}}
-                                            options={{
-                                            mode: 'range',
-                                            altInput: true,
-                                            altFormat: "F j",
-                                            dateFormat: "Y-m-d", 
-                                            onClose: handleDateChange 
-                                          }}
-                                          placeholder="Pick a date"
-                                           value={dateRange}/>
-                                        </div>
-                                        {/* End Filter */}
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <div className="col-sm-auto">
-                                    <Link
-                                      id="submit-search-events"
-                                      to="/EventSearch"
-                                      state={stateDate}
-                                      onClick={handleSearch}
-                                      className="btn btn-sm btn-danger fw-500 text-uppercase w-100 mb-20"
-                                    >
-                                      Search{" "}
-                                    </Link>
-                                  </div>
-                                </div>
-                              </animated.form>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="wpb_column vc_column_container vc_col-sm-2 vc_col-lg-2 vc_hidden-md vc_hidden-sm vc_hidden-xs">
-                          <div className="vc_column-inner">
-                            <div className="wpb_wrapper" />
-                          </div>
-                        </div>
-                      </div>
+                     <Search/>
                     </div>
                   </div>
                 </div>
@@ -356,7 +152,6 @@ export default function () {
             </section>
           </section>
         </div>
-        {/* /container*/}
       </section>
       {/* /wrapper.section */}
       <ul className="side-social-links">

@@ -1,15 +1,19 @@
 
 import React from 'react';
 import './style.css'; // Import your CSS file
-import Footer from '../layout/Footer';
-
 import { useLocation } from 'react-router-dom';
+import moment from 'moment';
+import { Link } from 'react-router-dom';
+
 const EventDetails = () => {
+
   const location = useLocation();
-  const event = location?.state; 
-  console.log(location?.state);
+  const searchData = location.state?.eventDetails;
+  console.log(searchData);
+
+
   return (
-    <>
+    <> 
       <section className="z-index-9 jarallax dark-background single-event-intro has-image-bg">
         <img
           className="jarallax-img"
@@ -22,9 +26,9 @@ const EventDetails = () => {
               <div className="row justify-content-center">
                 <div className="col-md-8 mb-13 mt-8 mt-lg-15">
                   <h1 className="royaltickets-heading mb-4 text-white text-center fw-600 mt-8" style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 600, fontSize: '56px', color: '#ffffff' }}>
-                    Vibra Mahou Fest
+                  {searchData?.[0].event_name}
                   </h1>
-                  <p className="text-muted-alt text-center" style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 300, fontSize: '16px', color: '#aaa7ca' }}>
+             {/* <p className="text-muted-alt text-center" style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 300, fontSize: '16px', color: '#aaa7ca' }}>
                     by{" "}
                     <a
                       className="text-red text-uppercase"
@@ -32,7 +36,7 @@ const EventDetails = () => {
                       style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 300, fontSize: '16px', color: '#d9072a' }}>
                       Soho Events
                     </a>
-                  </p>
+                  </p> */}
                 </div>
               </div>
             </div>
@@ -54,9 +58,9 @@ const EventDetails = () => {
                     <i className="fe fe-calendar text-dark-blue opacity_20 fs-40" style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 400, fontSize: '40px', color: '#161631' }} />
                   </div>
                   <h5 className="text-dark-blue mb-2 fw-400 fs-32" style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 400, fontSize: '32px', color: '#161631' }}>
-                    16 - 19 July{" "}
+                   {moment(searchData?.[0].event_start_date).format('DD')}{" "}-{" "}{moment(searchData?.[0].event_end_date).format('DD')}
                   </h5>
-                  <h5 className="text-muted fw-300 fs-20 mb-3 pr-lg-10" style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 300, fontSize: '24px', color: '#737373' }}>8:00 pm</h5>
+                  <h5 className="text-muted fw-300 fs-20 mb-3 pr-lg-10" style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 300, fontSize: '24px', color: '#737373' }}>{moment(searchData?.[0].event_start_date).format('MMM-YYYY')}</h5>
 
                 </div>
               </div>
@@ -69,9 +73,9 @@ const EventDetails = () => {
                     <i className="fe fe-map-pin text-dark-blue opacity_20 fs-40" />
                   </div>
                   <h5 className="text-dark-blue mb-2 fw-400 fs-32" style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 400, fontSize: '32px', color: '#161631' }}>
-                    Grant Park, Chicago
+                  {searchData?.[0].event_location}
                   </h5>
-                  <h5 className="text-muted fw-300 fs-20 mb-1 pr-lg-10" style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 300, fontSize: '24px', color: '#737373' }}>Chicago</h5>
+                  <h5 className="text-muted fw-300 fs-20 mb-1 pr-lg-10" style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 300, fontSize: '24px', color: '#737373' }}>  </h5>
                 </div>
               </div>
               <div className="col-12 col-sm-6 col-lg-4 d-flex">
@@ -80,20 +84,21 @@ const EventDetails = () => {
                   data-aos="fade-up"
                 >
                   <div className="d-inline-block mb-6">
-                    <i className="fe fe-dollar-sign text-dark-blue opacity_20 fs-40" />
+                    <i className="text-dark-blue opacity_20 fs-40" />
                   </div>
                   <h5 className="text-dark-blue mb-1 fw-400 fs-32" style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 400, fontSize: '32px', color: '#161631' }}>
-                    $39 - $1,200{" "}
+                 NGN {" "} {searchData?.[0].amount}/-
                   </h5>
+                  <Link to={`/TicketBook`} state={{ searchData}}>
                   <a
-                    href="/TicketBook"
                     className="btn-icon-right btn position-relative btn btn-danger fw-400 mt-3 lift view_tickets py-3"
                     style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 400, fontSize: '14px', color: '#ffffff', backgroundColor: '#d9072a' }}>
                     Book a Ticket{" "}
                     <span className="btn-icon-holder overflow-hidden">
                       <i className="fas fa-ticket-alt" />
                     </span>
-                  </a>
+                    </a>
+                    </Link>
                 </div>
               </div>
             </div>
@@ -107,7 +112,7 @@ const EventDetails = () => {
               <div className="row">
                 <div className="col-12 col-md-10">
                   <p className="text-red text-uppercase ls-1 pb-2" style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 300, fontSize: '16px', color: '#16151a' }}>
-                    Vibra Mahou Fest
+                  {searchData?.[0].special_request} 
                   </p>
                 </div>
                 {/* Event Description */}
@@ -144,7 +149,7 @@ const EventDetails = () => {
             <div className="col-12 col-md-10">
               <div className="row">
                 <div className="col-12 mb-6" style={{ marginTop: '600px' }}>
-                  <h3 className="mb-2 text-uppercase lh-1">Grant Park, Chicago</h3>
+                  <h3 className="mb-2 text-uppercase lh-1"> {searchData?.[0].event_location}</h3>
                   <h4 className="lh-1- fs-18 text-muted mb-8">
                     <i className="fe fe-map-pin text-dark-blue opacity_30 mr-1 fs-90" />{" "}
                     Grant Park, 337 E Randolph St, Chicago, IL 60601, USA

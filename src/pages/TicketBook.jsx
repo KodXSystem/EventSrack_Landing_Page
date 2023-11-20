@@ -1,12 +1,23 @@
 import React from 'react'
 import { useState } from 'react';
-import Footer from '../layout/Footer'
-import  Paystack from '../assets/logo/Paystack.png'
+import { useLocation } from 'react-router-dom';
+import Paystack from '../assets/logo/Paystack.png'
+import moment from 'moment';
+
+
 export default function TicketBook() {
+
+    const location = useLocation();
+    const searchData = location.state?.searchData;
+    console.log("Ticket show here------------", searchData);
+
     const [quantity, setQuantity] = useState(1);
+    const [formData, setFormData] = useState([]);
+
+
     const [rows, setRows] = useState([
         [
-            { id: 1},
+            { id: 1 },
             {
                 label: 'Full Name',
                 name: 'ticket-name',
@@ -88,31 +99,30 @@ export default function TicketBook() {
             });
         }
     };
-    const [formData, setFormData] = useState([]);
 
     const handleInputChange = (id, name, value) => {
-      setFormData((prevData) => ({
-        ...prevData,
-        [id]: {
-          ...prevData[id],
-          [name]: value,
-        },
-      }));
+        setFormData((prevData) => ({
+            ...prevData,
+            [id]: {
+                ...prevData[id],
+                [name]: value,
+            },
+        }));
     };
     const handleSubmit = (event) => {
         event.preventDefault();
         // Access your form data in the `formData` state object
         console.log(formData);
         // Add your logic to handle the form data
-      };
+    };
     const handleRemoveRow = (idToRemove) => {
-    const updatedRows = rows.filter((row) => row[0].id !== idToRemove);
-    setRows(updatedRows);
-    setQuantity(prevQuantity => {
-        const newQuantity = prevQuantity - 1;
-        console.log('New Quantity:', newQuantity);
-        return newQuantity;
-    });
+        const updatedRows = rows.filter((row) => row[0].id !== idToRemove);
+        setRows(updatedRows);
+        setQuantity(prevQuantity => {
+            const newQuantity = prevQuantity - 1;
+            console.log('New Quantity:', newQuantity);
+            return newQuantity;
+        });
     };
 
     return (
@@ -137,12 +147,12 @@ export default function TicketBook() {
                                     <div className="row">
                                         <div id="message-wrapper" className="col-12"></div>
                                         <div className="col-12 col-md-6">
-                                            <h4 className="mb-0 fw-400 fs-28 lh-1 mb-2" style={{ fontFamily: 'Montserrat, sans-serif', fontStyle: 'normal', fontWeight: 400, fontSize: '28px', lineHeight: '28px', color: '#16151a' }}>IT Conference</h4>
+                                            <h4 className="mb-0 fw-400 fs-28 lh-1 mb-2" style={{ fontFamily: 'Montserrat, sans-serif', fontStyle: 'normal', fontWeight: 400, fontSize: '28px', lineHeight: '28px', color: '#16151a' }}>{searchData?.[0].event_name}</h4>
                                             <p className="text-muted pb-0 fs-16" style={{ fontFamily: 'Montserrat, sans-serif', fontStyle: 'normal', fontWeight: 300, fontSize: '16px', lineHeight: '24px', color: '#737373' }}>
                                                 <i className="fe fe-map-pin text-dark-blue opacity_30 mr-2" />
-                                                San Jose Civic{" "}
+                                                 {" "}{searchData?.[0].event_location}
                                                 <i className="fe fe-calendar text-dark-blue opacity_30 ml-3 mr-2" />
-                                                17 April 8:00 am
+                                                {moment(searchData?.[0].event_start_date).format('DD-MMM')}
                                             </p>
                                         </div>
                                         <div className="col-12 col-md-4 align-items-center- d-flex justify-content-end payment-wrapper">
@@ -167,14 +177,14 @@ export default function TicketBook() {
                                         <div className="col-12">
                                             <div className="w-100 text-right">
                                                 <p className="text-muted pb-0 fs-16 text-right lh-1 mb-2" style={{ fontFamily: 'Montserrat, sans-serif', fontStyle: 'normal', fontWeight: 300, fontSize: '16px', lineHeight: '16px', color: '#737373' }}>
-                                                    Subtotal
+                                                  Subtotal
                                                 </p>
                                                 <h4
                                                     id="ticket-subtotal"
                                                     className="mb-0 fw-500 text-right lh-1"
                                                     style={{ fontFamily: 'Montserrat, sans-serif', fontStyle: 'normal', fontWeight: 500, fontSize: '30px', lineHeight: '30px', color: '#16151a' }}
                                                 >
-                                                    $149
+                                                NGN {searchData?.[0].amount * quantity}/-
                                                 </h4>
                                             </div>
                                         </div>
@@ -194,38 +204,38 @@ export default function TicketBook() {
                         <div className="col-12 col-md-8">
                             <div className="row mb-3">
                                 <div>
-                                <form onSubmit={handleSubmit}>
-      {rows.map((rowArray, index) => (
-        <div className="position-relative mb-6 border rounded p-3" key={index}>
-          <h3>{index === 0 ? 'Personal Details' : `Attendees ${rowArray[0].id}`}</h3>
-          {rowArray.slice(1).map((row) => (
-            <div key={row.id}>
-              <label className="form-label text-uppercase font-weight-bold fs-14 mb-2">
-                {row.label}
-              </label>
-              <input
-                type="text"
-                className="form-control mb-2"
-                name={row.name}
-                id={row.id}
-                defaultValue={row.defaultValue}
-                placeholder={row.placeholder}
-                onChange={(e) => handleInputChange(rowArray[0].id, row.name, e.target.value)}
-              />
-            </div>
-          ))}
-          {index !== 0 && (
-            <button
-              type="button"
-              className="close p-3"
-              onClick={() => handleRemoveRow(rowArray[0].id)}
-            >
-              <i className="fas fa-times"></i>
-            </button>
-          )}
-        </div>
-      ))}
-    </form>
+                                    <form onSubmit={handleSubmit}>
+                                        {rows.map((rowArray, index) => (
+                                            <div className="position-relative mb-6 border rounded p-3" key={index}>
+                                                <h3>{index === 0 ? 'Personal Details' : `Attendees ${rowArray[0].id}`}</h3>
+                                                {rowArray.slice(1).map((row) => (
+                                                    <div key={row.id}>
+                                                        <label className="form-label text-uppercase font-weight-bold fs-14 mb-2">
+                                                            {row.label}
+                                                        </label>
+                                                        <input
+                                                            type="text"
+                                                            className="form-control mb-2"
+                                                            name={row.name}
+                                                            id={row.id}
+                                                            defaultValue={row.defaultValue}
+                                                            placeholder={row.placeholder}
+                                                            onChange={(e) => handleInputChange(rowArray[0].id, row.name, e.target.value)}
+                                                        />
+                                                    </div>
+                                                ))}
+                                                {index !== 0 && (
+                                                    <button
+                                                        type="button"
+                                                        className="close p-3"
+                                                        onClick={() => handleRemoveRow(rowArray[0].id)}
+                                                    >
+                                                        <i className="fas fa-times"></i>
+                                                    </button>
+                                                )}
+                                            </div>
+                                        ))}
+                                    </form>
                                 </div>
                             </div>
                             <div>
@@ -245,8 +255,8 @@ export default function TicketBook() {
                                         className="w-50 rt-custom-control-label cursor-pointer d-inline-flex px-6 py-2 rounded align-items-center justify-content-center text-muted fw-40 lh-1"
                                         htmlFor="creditCardPayment"
                                     >
-                                 <img src={Paystack}
-                                 alt="Logo"/>
+                                        <img src={Paystack}
+                                            alt="Logo" />
                                     </label>
                                 </div>
                                 <div className="col-12 col-md-6 col-lg-4 rt-custom-control custom-radio mb-6">
@@ -259,7 +269,7 @@ export default function TicketBook() {
                                         className="btn position-relative btn btn-danger fw-400 mt-3 lift view_tickets py-3 px-10"
                                         style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 400, fontSize: '14px', color: '#ffffff', backgroundColor: '#d9072a' }}
                                         onClick={handleSubmit}>
-                                        
+
                                         Place Order
                                     </button>
                                 </div>
@@ -302,7 +312,7 @@ export default function TicketBook() {
                 </div>
             </section>
 
-            
+
         </>
         </div>
     )

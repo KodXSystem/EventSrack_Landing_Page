@@ -12,7 +12,7 @@ import {
 } from "mdb-react-ui-kit";
 
 export default function Testimonials() {
-    return (
+    return ( 
 
         <MDBContainer className="py-10" style={{ marginBottom: "100px", }}>
             <MDBCarousel showControls >
