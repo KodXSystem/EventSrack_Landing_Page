@@ -68,14 +68,14 @@ export default function Event(props) {
   }
   return (
     <MDBContainer style={{ marginBottom: '20px', marginTop: '-12px', marginLeft: '15px' }}>
-      <MDBCarousel showControls style={{ marginTop: '-168px' }}>
+      <MDBCarousel showControls showIndicators interval={1000} touch={false} style={{ marginTop: '-168px' }} >
         {eventsChunks.map((chunk, index) => (
-          <MDBCarouselItem key={index + 1} itemId={index + 1} style={{ marginTop: '177px' }} className={index === 0 ? 'active' : ''} interval={5000} >
+          <MDBCarouselItem key={index + 1} itemId={index + 1} style={{ marginTop: '177px' }} className={index === 0 ? 'active' : ''} interval={1000} >
             <MDBRow >
               {chunk.map(event => (
-                <MDBCol key={event.id}  >
+                <MDBCol key={event.id} className='col-md-4'>
                   <Link to={`/EventDetails`} state={{ eventDetails}} >
-                    <MDBCard>
+                    <MDBCard style={{width:'350px',}}>
                       <div class="bg-image hover-overlay ripple">
                         < MDBCardImage src="assets/wp-content/uploads/2019/12/sesame-street-live-3-873x1024.jpg" />
                         {/* < MDBCardImage src={event.banner_images} /> */}
@@ -84,7 +84,7 @@ export default function Event(props) {
                         </a>
                       </div>
                       < MDBCardOverlay  >
-                        <MDBCardBody style={{ bottom: "0px", marginTop: '110px' }} >
+                        <MDBCardBody style={{ bottom: "0px", marginTop: '110px' ,paddingLeft:'12px' }} >
                           <MDBCardText style={{ color: 'white', position: 'relative', marginBottom: '-8px' }}>NGN {" "}{event.amount}/-</MDBCardText>
                           <MDBCardTitle style={{ color: 'white' }}>{event.event_name}</MDBCardTitle>
                           <MDBCardText style={{ color: 'white' }}>

@@ -22,7 +22,7 @@ export default function EventFound() {
 
       <Search searchData={searchData} />
 
-      <div style={{ marginTop: '170px', marginLeft: "95px" }}>
+      <div style={{ marginTop: '170px', marginLeft: "100px" }}>
         {state.res.length > 0 ? <>
           <h4>Result</h4>
           <Event Events={state?.res } />
