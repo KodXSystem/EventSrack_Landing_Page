@@ -6,6 +6,9 @@ import {
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
+import { getEvents } from '../service/service';
+
+
 
 export default function Event(props) {
   const eventDetails = props?.Events;
@@ -13,9 +16,29 @@ export default function Event(props) {
 
   
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [allEvents, setAllEvents] = useState([]);
+
   const handleResize = () => {
     setWindowWidth(window.innerWidth);
   };
+  const getAllEvents = async () => {
+    try {
+      const res = await getEvents();
+      setAllEvents(res?.data?.data?.data || []);
+    } catch (e) {
+      console.log(e.message);
+    }
+  };
+ 
+  useEffect(() => {
+    getAllEvents()
+  }, [])
+
+
+
+  console.log(allEvents)
+
+
   useEffect(() => {
     const resizeListener = () => {
       handleResize();
@@ -27,57 +50,9 @@ export default function Event(props) {
       window.removeEventListener('resize', resizeListener);
     };
   }, []);
-  const events = [
-    {
-      id: 1,
-      banner_images: 'assets/wp-content/uploads/2019/12/vibra-mahou-fest-1-873x1024.jpg',
-      amount: '$39 - $1,200',
-      event_name: 'Vibra Mahou Fest',
-      date: 'Jul 16',
-      event_location: ' Grant Park,  ',
-    },
-    {
-      id: 2,
-      banner_images: 'assets/wp-content/uploads/2019/12/kenny-g-873x1024.jpg',
-      amount: '$120',
-      event_name: 'Kenny G',
-      date: '     Aug 28',
-      event_location: '   Majestic Theatre  ',
-    },
-    {
-      id: 3,
-      banner_images: 'assets/wp-content/uploads/2019/12/sesame-street-live-3-873x1024.jpg',
-      amount: '$45',
-      event_name: '  Sesame Street Live! Make ',
-      date: ' Sep 26',
-      location: 'Grand Chapiteau',
-    },
 
-    {
-      id: 4,
-      banner_images: '   assets/wp-content/uploads/2019/10/the-nutcracker-873x1024.jpg',
-      amount: '$69 - $79',
-      event_name: ' St. Petersburg Ballet-The Nutcracker     ',
-      date: 'Oct 9',
-      event_location: 'Majestic Theatre',
-    },
-    {
-      id: 5,
-      banner_images: 'assets/wp-content/uploads/2019/12/vlah-dumitru-FvmwloIbCeQ-unsplash-873x1024.jpg',
-      amount: '  $36 - $69',
-      event_name: 'The Phantom of the Opera',
-      date: '  Nov 28',
-      event_location: 'Kings Theatre',
-    },
-    {
-      id: 6,
-      banner_images: 'assets/wp-content/uploads/royaltickets-uploads/2019/12/cirque-du-solei-kurios-873x1024.jpg',
-      amount: '$49',
-      event_name: 'Cirque du Soleil Kurios',
-      date: 'Dec 26',
-      event_location: 'Grand Chapiteau',
-    },
-  ];
+  const events = allEvents;
+  
   let eventsChunks = []
   const isMobile = window.innerWidth <= 771;
   const chunkSize = isMobile ? 1 : 3;
@@ -99,7 +74,7 @@ export default function Event(props) {
             <MDBRow >
               {chunk.map(event => (
                 <MDBCol key={event.id}  >
-                  <Link to={`/EventDetails`} state={{ eventDetails}}>
+                  <Link to={`/EventDetails`} state={{ eventDetails}} >
                     <MDBCard>
                       <div class="bg-image hover-overlay ripple">
                         < MDBCardImage src="assets/wp-content/uploads/2019/12/sesame-street-live-3-873x1024.jpg" />

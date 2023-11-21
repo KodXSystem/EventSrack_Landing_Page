@@ -10,3 +10,10 @@ export const getCategory = () => {
 export const getSearch = (data) => {
   return authAxios.post("/landingPage/search",data);
 };
+
+export const getEvents = (data) => {
+  return authAxios.get("/event", data);
+}
+export const buyTicket = (data,searchData) => {
+  return authAxios.post("/landingPage/buyTicket", data,searchData);
+}
