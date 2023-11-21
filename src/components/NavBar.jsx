@@ -6,7 +6,7 @@ export default function NavBar() {
     <div className="container-wide">
       <div className="d-flex justify-content-between align-items-center h-100 position-relative px-lg-4">
         <div className="logo-main">
-          <a className="logo-wrapper logo-dark" href="#">
+          <a className="logo-wrapper logo-dark" href="/">
             <img
                src={AppLogo}
               alt="Logo"
@@ -43,7 +43,7 @@ export default function NavBar() {
             <li className="menu-login-register-button menu-item ml-4">
                           <a
                             className="login-button"
-                            href="#"
+                            href="/"
                             data-toggle="modal"
                             data-target="#loginRegisterModal"
                           >

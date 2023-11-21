@@ -74,7 +74,7 @@ export default function Event(props) {
             <MDBRow >
               {chunk.map(event => (
                 <MDBCol key={event.id}  >
-                  <Link to={`/EventDetails`} state={{ eventDetails}} >
+                  <Link to={`/EventDetails`} state={{event}} >
                     <MDBCard>
                       <div class="bg-image hover-overlay ripple">
                         < MDBCardImage src="assets/wp-content/uploads/2019/12/sesame-street-live-3-873x1024.jpg" />

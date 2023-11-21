@@ -8,9 +8,8 @@ import { PaystackButton } from "react-paystack";
 
 
 export default function TicketBook() {
-
-    const location = useLocation();
-    const searchData = location.state?.searchData;
+    const {state} = useLocation();
+    const searchData = state?.searchData;
     console.log("Ticket show here------------", searchData);
 
     const [quantity, setQuantity] = useState(1);
@@ -130,7 +129,7 @@ export default function TicketBook() {
    
     const handleSubmit = (event) => {
         event.preventDefault();
-        const event_id = searchData?.[0]._id;
+        const event_id = searchData?._id;
         const parentEmail = "";
         const dataArr = rows.map((rowArray) => {
             const rowData = rowArray.slice(1).reduce((acc, row) => {
@@ -232,12 +231,12 @@ export default function TicketBook() {
                                         <div className="row">
                                             <div id="message-wrapper" className="col-12"></div>
                                             <div className="col-12 col-md-6">
-                                                <h4 className="mb-0 fw-400 fs-28 lh-1 mb-2" style={{ fontFamily: 'Montserrat, sans-serif', fontStyle: 'normal', fontWeight: 400, fontSize: '28px', lineHeight: '28px', color: '#16151a' }}>{searchData?.[0].event_name}</h4>
+                                                <h4 className="mb-0 fw-400 fs-28 lh-1 mb-2" style={{ fontFamily: 'Montserrat, sans-serif', fontStyle: 'normal', fontWeight: 400, fontSize: '28px', lineHeight: '28px', color: '#16151a' }}>{searchData?.event_name}</h4>
                                                 <p className="text-muted pb-0 fs-16" style={{ fontFamily: 'Montserrat, sans-serif', fontStyle: 'normal', fontWeight: 300, fontSize: '16px', lineHeight: '24px', color: '#737373' }}>
                                                     <i className="fe fe-map-pin text-dark-blue opacity_30 mr-2" />
-                                                    {" "}{searchData?.[0].event_location}
+                                                    {" "}{searchData?.event_location}
                                                     <i className="fe fe-calendar text-dark-blue opacity_30 ml-3 mr-2" />
-                                                    {moment(searchData?.[0].event_start_date).format('DD-MMM')}
+                                                    {moment(searchData?.event_start_date).format('DD-MMM')}
                                                 </p>
                                             </div>
                                             <div className="col-12 col-md-4 align-items-center- d-flex justify-content-end payment-wrapper">
@@ -269,7 +268,7 @@ export default function TicketBook() {
                                                         className="mb-0 fw-500 text-right lh-1"
                                                         style={{ fontFamily: 'Montserrat, sans-serif', fontStyle: 'normal', fontWeight: 500, fontSize: '30px', lineHeight: '30px', color: '#16151a' }}
                                                     >
-                                                        NGN {searchData?.[0].amount * quantity}/-
+                                                        NGN {searchData?.amount * quantity}/-
                                                     </h4>
                                                 </div>
                                             </div>

@@ -7,8 +7,8 @@ import { Link } from 'react-router-dom';
 
 const EventDetails = () => {
 
-  const location = useLocation();
-  const searchData = location.state?.eventDetails;
+  const { state } = useLocation();
+  const searchData = state?.event;
   console.log(searchData);
 
 
@@ -26,7 +26,7 @@ const EventDetails = () => {
               <div className="row justify-content-center">
                 <div className="col-md-8 mb-13 mt-8 mt-lg-15">
                   <h1 className="royaltickets-heading mb-4 text-white text-center fw-600 mt-8" style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 600, fontSize: '56px', color: '#ffffff' }}>
-                  {searchData?.[0].event_name}
+                  {searchData?.event_name}
                   </h1>
              {/* <p className="text-muted-alt text-center" style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 300, fontSize: '16px', color: '#aaa7ca' }}>
                     by{" "}
@@ -58,9 +58,9 @@ const EventDetails = () => {
                     <i className="fe fe-calendar text-dark-blue opacity_20 fs-40" style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 400, fontSize: '40px', color: '#161631' }} />
                   </div>
                   <h5 className="text-dark-blue mb-2 fw-400 fs-32" style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 400, fontSize: '32px', color: '#161631' }}>
-                   {moment(searchData?.[0].event_start_date).format('DD')}{" "}-{" "}{moment(searchData?.[0].event_end_date).format('DD')}
+                   {moment(searchData?.event_start_date).format('DD')}{" "}-{" "}{moment(searchData?.event_end_date).format('DD')}
                   </h5>
-                  <h5 className="text-muted fw-300 fs-20 mb-3 pr-lg-10" style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 300, fontSize: '24px', color: '#737373' }}>{moment(searchData?.[0].event_start_date).format('MMM-YYYY')}</h5>
+                  <h5 className="text-muted fw-300 fs-20 mb-3 pr-lg-10" style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 300, fontSize: '24px', color: '#737373' }}>{moment(searchData?.event_start_date).format('MMM-YYYY')}</h5>
 
                 </div>
               </div>
@@ -73,7 +73,7 @@ const EventDetails = () => {
                     <i className="fe fe-map-pin text-dark-blue opacity_20 fs-40" />
                   </div>
                   <h5 className="text-dark-blue mb-2 fw-400 fs-32" style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 400, fontSize: '32px', color: '#161631' }}>
-                  {searchData?.[0].event_location}
+                  {searchData?.event_location}
                   </h5>
                   <h5 className="text-muted fw-300 fs-20 mb-1 pr-lg-10" style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 300, fontSize: '24px', color: '#737373' }}>  </h5>
                 </div>
@@ -87,7 +87,7 @@ const EventDetails = () => {
                     <i className="text-dark-blue opacity_20 fs-40" />
                   </div>
                   <h5 className="text-dark-blue mb-1 fw-400 fs-32" style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 400, fontSize: '32px', color: '#161631' }}>
-                 NGN {" "} {searchData?.[0].amount}/-
+                 NGN {" "} {searchData?.amount}/-
                   </h5>
                   <Link to={`/TicketBook`} state={{ searchData}}>
                   <a
@@ -112,7 +112,7 @@ const EventDetails = () => {
               <div className="row">
                 <div className="col-12 col-md-10">
                   <p className="text-red text-uppercase ls-1 pb-2" style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 300, fontSize: '16px', color: '#16151a' }}>
-                  {searchData?.[0].special_request} 
+                  {searchData?.special_request} 
                   </p>
                 </div>
                 {/* Event Description */}
@@ -149,7 +149,7 @@ const EventDetails = () => {
             <div className="col-12 col-md-10">
               <div className="row">
                 <div className="col-12 mb-6" style={{ marginTop: '600px' }}>
-                  <h3 className="mb-2 text-uppercase lh-1"> {searchData?.[0].event_location}</h3>
+                  <h3 className="mb-2 text-uppercase lh-1"> {searchData?.event_location}</h3>
                   <h4 className="lh-1- fs-18 text-muted mb-8">
                     <i className="fe fe-map-pin text-dark-blue opacity_30 mr-1 fs-90" />{" "}
                     Grant Park, 337 E Randolph St, Chicago, IL 60601, USA
