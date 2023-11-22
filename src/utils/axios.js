@@ -2,7 +2,7 @@ import axios from "axios";
 import { Navigate } from "react-router-dom";
 // Alter defaults after instance has been created
 const authAxios = axios.create({
-  baseURL:"http://192.168.1.19:3012/api",
+  baseURL:"http://192.168.12.1:3012/api",
 });
 
 // Add a request interceptor
