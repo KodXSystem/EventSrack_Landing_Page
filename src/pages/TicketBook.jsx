@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Paystack from '../assets/logo/Paystack.png'
 import moment from 'moment';
 import { buyTicket } from "../service/service"
@@ -8,12 +8,16 @@ import { PaystackButton } from "react-paystack";
 
 
 export default function TicketBook() {
-    const {state} = useLocation();
+
+    const navigate = useNavigate();
+    const { state } = useLocation();
     const searchData = state?.searchData;
-    console.log("Ticket show here------------", searchData);
 
     const [quantity, setQuantity] = useState(1);
     const [formData, setFormData] = useState([]);
+    const [isPaying, setIsPaying] = useState(false);
+    const [res, setRes] = useState('')
+    const [data1, setData1] = useState('')
 
 
     const [rows, setRows] = useState([
@@ -49,14 +53,7 @@ export default function TicketBook() {
                 placeholder: 'Enter your password'
 
             },
-            {
-                label: 'Confirm Password',
-                name: 'confirmPassword',
-                id: '5',
-                defaultValue: '',
-                placeholder: 'Enter your confirm password'
-
-            }
+           
         ]
     ]);
 
@@ -126,76 +123,75 @@ export default function TicketBook() {
             },
         }));
     };
-   
-    const handleSubmit = (event) => {
-        event.preventDefault();
+
+
+    const payNowPaystack = async (data) => {
+        try {
+            data = {
+                ...data1,
+                data,
+                no_of_tickets_sold:quantity
+            }
+
+            const res = await buyTicket(data)
+            if (res) {
+                navigate("/");
+            }
+
+        } catch (error) {
+            console.log(error)
+        }
+
+
+    };
+
+
+    const handleSubmit = () => {
+
         const event_id = searchData?._id;
-        const parentEmail = "";
-        const dataArr = rows.map((rowArray) => {
-            const rowData = rowArray.slice(1).reduce((acc, row) => {
+        const attendenceArr = rows?.map((rowArray) => {
+            const rowData = rowArray?.slice(1).reduce((acc, row) => {
                 acc[row.name] = formData[rowArray[0].id][row.name];
                 acc['event_id'] = event_id
                 return acc;
             }, {});
             return rowData;
         });
-
-        console.log(formData)
-        console.log(dataArr)
-
+        setRes(attendenceArr)
         const data = {
-            dataArr, searchData
+            attendenceArr, searchData
         }
         console.log('Converted Form Data:', data);
-
-
-        // buyTicket(data)
-        // Add your logic to handle the form data
+        setData1(data)
     };
- 
 
     const componentProps = {
-    //     email,
-    //     amount: searchData?.[0].amount * quantity,
-    //     currency: "ZAR",
-    //     metadata: {
-    //       name,
-    //       phone,
-    //     },
-    //     publicKey,
-    //     className: `${
-    //       eventDetail?.joined_customers
-    //         ?.map((ite) => ite?.customer_id)
-    //         .includes(currentUser?.data?._id)
-    //         ? "btn btn-warning"
-    //         : "btn btn-primary"
-    //     }`,
-    //     text: `This amount includes VAT. Click here to Pay Now  ${eventDetail?.amount * (rowsData?.length || 1)} ZAR`,
-    //     // ref: (props.type == "customer" ? "c_" : "v_") + props.ref,
-    //     onSuccess: ({ reference }) => {
-    //       setIsPaying(true);
-    //       const data = {
-    //         account_id: currentUser?.data?._id,
-    //         event_id: eventDetail?._id,
-    //         payment_id: reference,
-    //         payment_method: "Paystack",
-    //         points_available: eventDetail?.add_event_point,
-    //         amount: eventDetail?.amount * (rowsData?.length || 1),
-    //         currency: "ZAR",
-    //         status: UserRequestEventStatuses(
-    //           eventDetail?.joined_customers?.filter(
-    //             (item) =>
-    //               item?.customer_id?.user_detail?.account_id ===
-    //               currentUser?.data?._id
-    //           )?.[0]?.event_status || "Pending For Payment"
-    //         ),
-    //       };
-    //       payNowPaystack(data);
-    //     },
-    //     onClose: () => console.log("Wait! don't go!!!!"),
-      };
-
-
+        email: res[0]?.email,
+        amount: searchData?.amount * quantity * 100,
+        currency: "ZAR",
+        metadata: {
+            name: res[0]?.first_name,
+            phone: res[0]?.phone_number,
+        },
+        publicKey: "pk_test_9602064c9e4c80969049c9d7743ca8d8aee1a2ad",
+        text: `Paystack Pay Now`,
+        onSuccess: ({ reference }) => {
+            setIsPaying(true);
+            const data = {
+                account_id: "fakeId",
+                event_id: searchData?._id,
+                payment_id: reference,
+                payment_method: "Paystack",
+                points_available: searchData?.add_event_point,
+                amount: searchData?.amount * quantity,
+                currency: "ZAR",
+                status: "Approved"
+            };
+            console.log(data)
+            payNowPaystack(data);
+        },
+        onClose: () => console.log("Wait! don't go!!!!"),
+    };
 
 
     const handleRemoveRow = (idToRemove) => {
@@ -288,38 +284,38 @@ export default function TicketBook() {
                             <div className="col-12 col-md-8">
                                 <div className="row mb-3">
                                     <div>
-                                        <form onSubmit={handleSubmit}>
-                                            {rows.map((rowArray, index) => (
-                                                <div className="position-relative mb-6 border rounded p-3" key={index}>
-                                                    <h3>{index === 0 ? 'Personal Details' : `Attendees ${rowArray[0].id}`}</h3>
-                                                    {rowArray.slice(1).map((row) => (
-                                                        <div key={row.id}>
-                                                            <label className="form-label text-uppercase font-weight-bold fs-14 mb-2">
-                                                                {row.label}
-                                                            </label>
-                                                            <input
-                                                                type="text"
-                                                                className="form-control mb-2"
-                                                                name={row.name}
-                                                                id={row.id}
-                                                                defaultValue={row.defaultValue}
-                                                                placeholder={row.placeholder}
-                                                                onChange={(e) => handleInputChange(rowArray[0].id, row.name, e.target.value)}
-                                                            />
-                                                        </div>
-                                                    ))}
-                                                    {index !== 0 && (
-                                                        <button
-                                                            type="button"
-                                                            className="close p-3"
-                                                            onClick={() => handleRemoveRow(rowArray[0].id)}
-                                                        >
-                                                            <i className="fas fa-times"></i>
-                                                        </button>
-                                                    )}
-                                                </div>
-                                            ))}
-                                        </form>
+
+                                        {rows.map((rowArray, index) => (
+                                            <div className="position-relative mb-6 border rounded p-3" key={index}>
+                                                <h3>{index === 0 ? 'Personal Details' : `Attendees ${rowArray[0].id}`}</h3>
+                                                {rowArray.slice(1).map((row) => (
+                                                    <div key={row.id}>
+                                                        <label className="form-label text-uppercase font-weight-bold fs-14 mb-2">
+                                                            {row.label}
+                                                        </label>
+                                                        <input
+                                                            type="text"
+                                                            className="form-control mb-2"
+                                                            name={row.name}
+                                                            id={row.id}
+                                                            defaultValue={row.defaultValue}
+                                                            placeholder={row.placeholder}
+                                                            onChange={(e) => handleInputChange(rowArray[0].id, row.name, e.target.value)}
+                                                        />
+                                                    </div>
+                                                ))}
+                                                {index !== 0 && (
+                                                    <button
+                                                        type="button"
+                                                        className="close p-3"
+                                                        onClick={() => handleRemoveRow(rowArray[0].id)}
+                                                    >
+                                                        <i className="fas fa-times"></i>
+                                                    </button>
+                                                )}
+                                            </div>
+                                        ))}
+
                                     </div>
                                 </div>
                                 <div>
@@ -327,22 +323,22 @@ export default function TicketBook() {
                                 <h4 style={{ fontFamily: 'Montserrat, sans-serif', fontStyle: 'normal', fontWeight: 500, fontSize: '30px', lineHeight: '36px', color: '#16151a' }}>Payment Method</h4>
                                 <div className="row payment-types pt-4 payment-wrapper justify-content-end">
                                     <div className="col-12 col-md-6 col-lg-4 rt-custom-control custom-radio mb-6">
-                                    <input
-                                        type="radio"
-                                        id="creditCardPayment"
-                                        name="payment"
-                                        className="custom-control-input"
-                                        defaultChecked=""
-                                        defaultValue="Stripe"
-                                    />
+                                        <input
+                                            type="radio"
+                                            id="creditCardPayment"
+                                            name="payment"
+                                            className="custom-control-input"
+                                            defaultChecked=""
+                                            defaultValue="Stripe"
+                                        />
                                         <label
                                             className="w-50 rt-custom-control-label cursor-pointer d-inline-flex px-6 py-2 rounded align-items-center justify-content-center text-muted fw-40 lh-1"
                                             htmlFor="creditCardPayment"
                                         >
-                                        <PaystackButton {...componentProps} />
+
                                             <img src={Paystack}
                                                 alt="Logo" />
-                                                
+
                                         </label>
                                     </div>
                                     <div className="col-12 col-md-6 col-lg-4 rt-custom-control custom-radio mb-6">
@@ -354,9 +350,10 @@ export default function TicketBook() {
                                             id="place-order"
                                             className="btn position-relative btn btn-danger fw-400 mt-3 lift view_tickets py-3 px-10"
                                             style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 400, fontSize: '14px', color: '#ffffff', backgroundColor: '#d9072a' }}
-                                            onClick={handleSubmit}>
+                                            onClick={handleSubmit}
+                                        >
 
-                                            Place Order
+                                            <PaystackButton className="paystack-button" {...componentProps} />
                                         </button>
                                     </div>
                                 </div>

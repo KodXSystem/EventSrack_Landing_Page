@@ -14,6 +14,6 @@ export const getSearch = (data) => {
 export const getEvents = (data) => {
   return authAxios.get("/event", data);
 }
-export const buyTicket = (data,searchData) => {
-  return authAxios.post("/landingPage/buyTicket", data,searchData);
+export const buyTicket = (data) => {
+  return authAxios.post("/landingPage/buyTicket", data);
 }

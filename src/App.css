@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;1,300&display=swap");
 .App {
   text-align: center;
 }
@@ -39,4 +40,24 @@
 
 .card {
   border-radius: .7rem;
+}
+.paystack-button {
+  cursor: pointer;
+  text-align: center;
+  font-size: 10px;
+  letter-spacing: 0.1rem;
+  text-transform: uppercase;
+  background-color: #D9072A;
+  font-weight: bold;
+  color: #e0eafc;
+  border: none;
+  border-radius: 5px;
+}
+
+.paystack-button:hover {
+  background-color: #D9072A;
+}
+
+.paystack-button:focus {
+  outline: none;
 }
