@@ -3,47 +3,32 @@ import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Paystack from '../assets/logo/Paystack.png'
 import moment from 'moment';
-import { buyTicket } from "../service/service"
+import { buyTicket,getAccounts } from "../service/service"
 import { PaystackButton } from "react-paystack";
-
+import SweetAlert from 'react-bootstrap-sweetalert';
 
 export default function TicketBook() {
 
     const navigate = useNavigate();
     const { state } = useLocation();
     const searchData = state?.searchData;
-
+    const [show, setShow] = useState(false);
     const [quantity, setQuantity] = useState(1);
     const [formData, setFormData] = useState([]);
     const [isPaying, setIsPaying] = useState(false);
     const [res, setRes] = useState('')
     const [data1, setData1] = useState('')
-
+    const [selectedPayment, setSelectedPayment] = useState('');
 
     const [rows, setRows] = useState([
         [
             { id: 1 },
-            {
-                label: 'Full Name',
-                name: 'first_name',
-                id: '1',
-                defaultValue: '',
-                placeholder: 'Enter your name'
-            },
             {
                 label: 'Email Address',
                 name: 'email',
                 id: '2',
                 defaultValue: '',
                 placeholder: 'Enter your email'
-            },
-            {
-                label: 'Phone Number',
-                name: 'phone_number',
-                id: '3',
-                defaultValue: '',
-                placeholder: 'Enter your phone number'
-
             },
             {
                 label: 'Password',
@@ -53,7 +38,21 @@ export default function TicketBook() {
                 placeholder: 'Enter your password'
 
             },
-           
+            {
+                label: 'Full Name',
+                name: 'first_name',
+                id: '1',
+                defaultValue: '',
+                placeholder: 'Enter your name'
+            },
+            {
+                label: 'Phone Number',
+                name: 'phone_number',
+                id: '3',
+                defaultValue: '',
+                placeholder: 'Enter your phone number'
+
+            },
         ]
     ]);
 
@@ -69,18 +68,18 @@ export default function TicketBook() {
                 [
                     { id: quantity + 1 },
                     {
-                        label: 'Full Name',
-                        name: 'first_name',
-                        id: '1',
-                        defaultValue: '',
-                        placeholder: 'Enter your name'
-                    },
-                    {
                         label: 'Email Address',
                         name: 'email',
                         id: '2',
                         defaultValue: '',
                         placeholder: 'Enter your email'
+                    },
+                    {
+                        label: 'Full Name',
+                        name: 'first_name',
+                        id: '1',
+                        defaultValue: '',
+                        placeholder: 'Enter your name'
                     },
                     {
                         label: 'Phone Number',
@@ -147,11 +146,10 @@ export default function TicketBook() {
 
 
     const handleSubmit = () => {
-
         const event_id = searchData?._id;
         const attendenceArr = rows?.map((rowArray) => {
             const rowData = rowArray?.slice(1).reduce((acc, row) => {
-                acc[row.name] = formData[rowArray[0].id][row.name];
+                acc[row?.name] = formData[rowArray[0].id][row?.name];
                 acc['event_id'] = event_id
                 return acc;
             }, {});
@@ -203,10 +201,39 @@ export default function TicketBook() {
             return newQuantity;
         });
     };
+    console.log(formData[1]?.email,"submited form data is here" );
+console.log(formData,"submited form data is here" );
+
+ const handleEmailConfirm= (name,value) => {
+   if(name==="email"){
+    try {
+        const res = getAccounts(value)
+    } catch (error) {
+        console.log(error)
+    }
+    setShow(true)
+    }
+  };
+  const handlePaymentChange = (e) => {
+    setSelectedPayment(e.target.value);
+  };
+ const handleCloseAlert = () => {
+    setShow(false)
+  };
+
 
     return (
         <div>
             <>
+            <SweetAlert
+            warning
+          show={show}
+          confirmBtnBsStyle="danger"
+          title="Your email already exist!"
+          text="Your Email Already Exist!"
+          onConfirm={handleCloseAlert}
+          onCancel={handleCloseAlert}
+                />
                 <section className="z-index-9 jarallax has-image-bg">
                     <img
                         className="jarallax-img"
@@ -237,9 +264,9 @@ export default function TicketBook() {
                                             </div>
                                             <div className="col-12 col-md-4 align-items-center- d-flex justify-content-end payment-wrapper">
                                             </div>
-                                            <div className="col-12 col-md-2 align-items-center d-flex justify-content-end payment-wrapper">
+                                            <div className="col-12 col-md-2 align-items-center d-flex justify-content-end payment-wrapper" >
                                                 <div className="royaltickets-qty d-flex align-items-center justify-content-end">
-                                                    <span className="minus" onClick={decrement}>-</span>
+                                                    <button className="minus" onClick={decrement} >-</button>
                                                     <input
                                                         type="number"
                                                         className="count mb-0"
@@ -247,7 +274,7 @@ export default function TicketBook() {
                                                         value={quantity}
                                                         readOnly
                                                     />
-                                                    <span className="plus" onClick={increment} >+</span>
+                                                    <button className="plus" onClick={increment}   disabled={formData[1]?.email=== "" ||formData?.length === 0  ? true: false}>+</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -284,10 +311,9 @@ export default function TicketBook() {
                             <div className="col-12 col-md-8">
                                 <div className="row mb-3">
                                     <div>
-
                                         {rows.map((rowArray, index) => (
                                             <div className="position-relative mb-6 border rounded p-3" key={index}>
-                                                <h3>{index === 0 ? 'Personal Details' : `Attendees ${rowArray[0].id}`}</h3>
+                                                <h3>{index === 0 ? 'Personal Details' : `Attendees ${rowArray[0].id-1}`}</h3>
                                                 {rowArray.slice(1).map((row) => (
                                                     <div key={row.id}>
                                                         <label className="form-label text-uppercase font-weight-bold fs-14 mb-2">
@@ -301,6 +327,7 @@ export default function TicketBook() {
                                                             defaultValue={row.defaultValue}
                                                             placeholder={row.placeholder}
                                                             onChange={(e) => handleInputChange(rowArray[0].id, row.name, e.target.value)}
+                                                            onBlur={(e)=>handleEmailConfirm(row.name, e.target.value)}
                                                         />
                                                     </div>
                                                 ))}
@@ -329,7 +356,9 @@ export default function TicketBook() {
                                             name="payment"
                                             className="custom-control-input"
                                             defaultChecked=""
-                                            defaultValue="Stripe"
+                                            value="Stripe"
+                                            checked={selectedPayment === 'Stripe'}
+                                            onChange={handlePaymentChange}
                                         />
                                         <label
                                             className="w-50 rt-custom-control-label cursor-pointer d-inline-flex px-6 py-2 rounded align-items-center justify-content-center text-muted fw-40 lh-1"
@@ -348,12 +377,12 @@ export default function TicketBook() {
                                     <div className="col-12 text-right pt-4 pb-8">
                                         <button
                                             id="place-order"
-                                            className="btn position-relative btn btn-danger fw-400 mt-3 lift view_tickets py-3 px-10"
+                                            className="btn position-relative btn btn-danger fw-400 mt-3 lift view_tickets py-1 px-1"
                                             style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 400, fontSize: '14px', color: '#ffffff', backgroundColor: '#d9072a' }}
                                             onClick={handleSubmit}
+                                            disabled={formData[1]?.email=== "" ||formData?.length === 0 || selectedPayment!=="Stripe"  ? true: false}
                                         >
-
-                                            <PaystackButton className="paystack-button" {...componentProps} />
+                                            <PaystackButton className="paystack-button py-3 px-10" {...componentProps} />
                                         </button>
                                     </div>
                                 </div>
@@ -394,8 +423,6 @@ export default function TicketBook() {
                         </div>
                     </div>
                 </section>
-
-
             </>
         </div>
     )

@@ -4,14 +4,12 @@ import './style.css'; // Import your CSS file
 import { useLocation } from 'react-router-dom';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
+import ImageCarousel from '../components/ImageCarousel';
 
 const EventDetails = () => {
-
-  const { state } = useLocation();
-  const searchData = state?.event;
-  console.log(searchData);
-
-
+const { state } = useLocation();
+const searchData = state?.event;
+console.log(searchData);
   return (
     <> 
       <section className="z-index-9 jarallax dark-background single-event-intro has-image-bg">
@@ -112,43 +110,40 @@ const EventDetails = () => {
               <div className="row">
                 <div className="col-12 col-md-10">
                   <p className="text-red text-uppercase ls-1 pb-2" style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 300, fontSize: '16px', color: '#16151a' }}>
-                  {searchData?.special_request} 
+                  {searchData?.event_name} 
                   </p>
                 </div>
                 {/* Event Description */}
                 <div className="col-12 col-md-10 mt-6 mb-10">
                   <p style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 300, fontSize: '16px', color: '#16151a' }}>
-                    <strong style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 500, fontSize: '16px', color: '#676767' }} >Festival lineup:&nbsp;</strong>The Strokes, the
-                    Chainsmokers, Childish Gambino, Tame Impala, Twenty One Pilots, J
-                    Balvin, Ariana Grande, Flume
+                  {searchData?.special_request} 
                   </p>
-                  <p style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 300, fontSize: '16px', color: '#16151a' }}>
-                    A wonderful gathering of music, dance, comedy and craft booths,
-                    Lollapalooza is another multi-genre delight which also provides a
-                    platform for political and non-profit artists and groups. The
-                    festival is forever creating historical moments&nbsp;in many a
-                    musicians career firmly cementing it in the global hall of fame
-                    for festivals.
-                  </p>
-                  <div className='image'>
+                  {/* <div className='image'>
                     <img
                       className="jarallax-img " style={{ width: '990px', height: '80vh' }}
-                      src="/assets/wp-content/uploads/2019/12/vibra-mahou-fest-1-873x1024.jpg "
+                      src = {`http://192.168.1.12:3012/media/eventImage/652e3dbe63ab1a0a48096577/${searchData.banner_images[0]}`}
                       alt="Vibra Mahou Fest"
                     />
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>
           </div>
         </div>
+        {searchData?.banner_images.length > 0 ?
+        <div className="container px-0"  >
+        <div style={{ margin: 'auto' }}>
+        <ImageCarousel images={searchData?.banner_images}/>
+        </div>
+        </div>
+         : "" }
       </section>
       <section className="pb-12" style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 300, fontSize: '16px', color: '#16151a', marginTop: '-200' }}>
         <div className="container px-0">
           <div className="row justify-content-center">
             <div className="col-12 col-md-10">
               <div className="row">
-                <div className="col-12 mb-6" style={{ marginTop: '600px' }}>
+                <div className="col-12 mb-6" style={{ marginTop: '100px' }}>
                   <h3 className="mb-2 text-uppercase lh-1"> {searchData?.event_location}</h3>
                   <h4 className="lh-1- fs-18 text-muted mb-8">
                     <i className="fe fe-map-pin text-dark-blue opacity_30 mr-1 fs-90" />{" "}
