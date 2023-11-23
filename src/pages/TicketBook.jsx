@@ -201,13 +201,15 @@ export default function TicketBook() {
             return newQuantity;
         });
     };
-    console.log(formData[1]?.email,"submited form data is here" );
 console.log(formData,"submited form data is here" );
 
  const handleEmailConfirm= (name,value) => {
    if(name==="email"){
+    const data ={
+        email:value
+    }
     try {
-        const res = getAccounts(value)
+        const res = getAccounts(data)
     } catch (error) {
         console.log(error)
     }
