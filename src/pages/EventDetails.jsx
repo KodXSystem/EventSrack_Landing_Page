@@ -131,8 +131,8 @@ console.log(searchData);
           </div>
         </div>
         {searchData?.banner_images.length > 0 ?
-        <div className="container px-0"  >
-        <div style={{ margin: 'auto' }}>
+        <div className="container px-5"  >
+        <div>
         <ImageCarousel images={searchData?.banner_images}/>
         </div>
         </div>
