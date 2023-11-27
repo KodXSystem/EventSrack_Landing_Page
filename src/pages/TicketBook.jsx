@@ -203,7 +203,7 @@ export default function TicketBook() {
 console.log(formData,"submited form data is here" );
 
  const handleEmailConfirm =async  (id,name,value) => {
-   if(name==="email" && id === 1){
+   if(name==="email" && id === 1 && value!==""){
     const data ={
         email:value,
         password:"123",
