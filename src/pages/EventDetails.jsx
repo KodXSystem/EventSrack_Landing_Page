@@ -120,8 +120,8 @@ console.log(searchData);
                   </p>
                   {/* <div className='image'>
                     <img
-                      className="jarallax-img " style={{ width: '990px', height: '80vh' }}
-                      src = {`http://192.168.1.12:3012/media/eventImage/652e3dbe63ab1a0a48096577/${searchData.banner_images[0]}`}
+                      className="jarallax-img " style={{ width: '700px', height: '20vh' }}
+                      src = {`http://192.168.1.9:3012/media/eventImage/652e3dbe63ab1a0a48096577/${searchData.banner_images[0]}`}
                       alt="Vibra Mahou Fest"
                     />
                   </div> */}
