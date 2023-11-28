@@ -13,6 +13,7 @@ export default function TicketBook() {
     const { state } = useLocation();
     const searchData = state?.searchData;
     const [show, setShow] = useState(false);
+    const [errorTitle, setErrorTitle] = useState("");
     const [quantity, setQuantity] = useState(1);
     const [formData, setFormData] = useState([]);
     const [isPaying, setIsPaying] = useState(false);
@@ -96,7 +97,6 @@ export default function TicketBook() {
         });
     };
     const decrement = (index) => {
-        console.log(index);
         if (quantity > 1 && rows.length > 1) {
             setQuantity(prevQuantity => {
                 const newQuantity = prevQuantity - 1;
@@ -143,7 +143,6 @@ export default function TicketBook() {
 
 
     };
-
 
     const handleSubmit = () => {
         const event_id = searchData?._id;
@@ -201,17 +200,25 @@ export default function TicketBook() {
             return newQuantity;
         });
     };
-    console.log(formData[1]?.email,"submited form data is here" );
 console.log(formData,"submited form data is here" );
 
- const handleEmailConfirm= (name,value) => {
-   if(name==="email"){
+ const handleEmailConfirm =async  (id,name,value) => {
+   if(name==="email" && id === 1 && value!==""){
+    const data ={
+        email:value,
+        password:"123",
+        user_type :"customer",
+        gender :""
+    }
     try {
-        const res = getAccounts(value)
+        const res =  await getAccounts(data)
     } catch (error) {
         console.log(error)
+        const errorMessage = error.response && error.response.data && error.response.data.message;
+       console.log("Error:", errorMessage || error.message);
+        setShow(true)
+        setErrorTitle(errorMessage)
     }
-    setShow(true)
     }
   };
   const handlePaymentChange = (e) => {
@@ -229,7 +236,7 @@ console.log(formData,"submited form data is here" );
             warning
           show={show}
           confirmBtnBsStyle="danger"
-          title="Your email already exist!"
+          title={errorTitle}
           text="Your Email Already Exist!"
           onConfirm={handleCloseAlert}
           onCancel={handleCloseAlert}
@@ -274,7 +281,7 @@ console.log(formData,"submited form data is here" );
                                                         value={quantity}
                                                         readOnly
                                                     />
-                                                    <button className="plus" onClick={increment}   disabled={formData[1]?.email=== "" ||formData?.length === 0  ? true: false}>+</button>
+                                                    <button className="plus" onClick={increment}   disabled={formData[quantity]?.email=== "" || formData?.length === quantity-1  ? true: false}>+</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -327,7 +334,7 @@ console.log(formData,"submited form data is here" );
                                                             defaultValue={row.defaultValue}
                                                             placeholder={row.placeholder}
                                                             onChange={(e) => handleInputChange(rowArray[0].id, row.name, e.target.value)}
-                                                            onBlur={(e)=>handleEmailConfirm(row.name, e.target.value)}
+                                                            onBlur={(e)=>handleEmailConfirm(rowArray[0].id,row.name, e.target.value)}
                                                         />
                                                     </div>
                                                 ))}
