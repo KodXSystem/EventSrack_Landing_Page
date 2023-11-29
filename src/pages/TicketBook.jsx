@@ -210,12 +210,14 @@ export default function TicketBook() {
             try {
                 const res = await getUserFind(data)
                 console.log(res)
+                if(!res.data.error){
+                setShow(true)
+                setErrorTitle("This email is already exist")
+                }
             } catch (error) {
                 console.log(error)
                 const errorMessage = error.response && error.response.data && error.response.data.message;
                 console.log("Error:", errorMessage || error.message);
-                setShow(true)
-                setErrorTitle(errorMessage)
             }
         }
     };
