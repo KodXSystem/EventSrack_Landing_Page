@@ -3,7 +3,7 @@ import { MDBCarousel, MDBCarouselItem, MDBCard, MDBCardImage, MDBRow, MDBCol } f
 import { Carousel } from 'react-responsive-carousel';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 const ImageCarousel = ({ images }) => {
-const baseUrl = 'http://192.168.1.12:3012/media/eventImage/652e3dbe63ab1a0a48096577/';
+const baseUrl = 'http://192.168.1.9:3012/media/eventImage/652e3dbe63ab1a0a48096577/';
   return (
     <Carousel showArrows={true} thumbWidth={100} showThumbs={true}  showStatus={false} centerSlidePercentage={55} >
     {images.map((src, index) => (

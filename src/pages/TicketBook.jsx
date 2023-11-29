@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Paystack from '../assets/logo/Paystack.png'
 import moment from 'moment';
-import { buyTicket,getAccounts } from "../service/service"
+import { buyTicket, getUserFind } from "../service/service"
 import { PaystackButton } from "react-paystack";
 import SweetAlert from 'react-bootstrap-sweetalert';
 
@@ -129,7 +129,7 @@ export default function TicketBook() {
             data = {
                 ...data1,
                 data,
-                no_of_tickets_sold:quantity
+                no_of_tickets_sold: quantity
             }
 
             const res = await buyTicket(data)
@@ -200,46 +200,44 @@ export default function TicketBook() {
             return newQuantity;
         });
     };
-console.log(formData,"submited form data is here" );
-
- const handleEmailConfirm =async  (id,name,value) => {
-   if(name==="email" && id === 1 && value!==""){
-    const data ={
-        email:value,
-        password:"123",
-        user_type :"customer",
-        gender :""
-    }
-    try {
-        const res =  await getAccounts(data)
-    } catch (error) {
-        console.log(error)
-        const errorMessage = error.response && error.response.data && error.response.data.message;
-       console.log("Error:", errorMessage || error.message);
-        setShow(true)
-        setErrorTitle(errorMessage)
-    }
-    }
-  };
-  const handlePaymentChange = (e) => {
-    setSelectedPayment(e.target.value);
-  };
- const handleCloseAlert = () => {
-    setShow(false)
-  };
 
 
+    const handleEmailConfirm = async (id, name, value) => {
+        if (name === "email" && id === 1 && value !== "") {
+            const data = {
+                email: value,
+            }
+            try {
+                const res = await getUserFind(data)
+                console.log(res)
+                if(!res.data.error){
+                setShow(true)
+                setErrorTitle("This email is already exist")
+                }
+            } catch (error) {
+                console.log(error)
+                const errorMessage = error.response && error.response.data && error.response.data.message;
+                console.log("Error:", errorMessage || error.message);
+            }
+        }
+    };
+    const handlePaymentChange = (e) => {
+        setSelectedPayment(e.target.value);
+    };
+    const handleCloseAlert = () => {
+        setShow(false)
+    };
     return (
         <div>
             <>
-            <SweetAlert
-            warning
-          show={show}
-          confirmBtnBsStyle="danger"
-          title={errorTitle}
-          text="Your Email Already Exist!"
-          onConfirm={handleCloseAlert}
-          onCancel={handleCloseAlert}
+                <SweetAlert
+                    warning
+                    show={show}
+                    confirmBtnBsStyle="danger"
+                    title={errorTitle}
+                    text="Your Email Already Exist!"
+                    onConfirm={handleCloseAlert}
+                    onCancel={handleCloseAlert}
                 />
                 <section className="z-index-9 jarallax has-image-bg">
                     <img
@@ -281,7 +279,7 @@ console.log(formData,"submited form data is here" );
                                                         value={quantity}
                                                         readOnly
                                                     />
-                                                    <button className="plus" onClick={increment}   disabled={formData[quantity]?.email=== "" || formData?.length === quantity-1  ? true: false}>+</button>
+                                                    <button className="plus" onClick={increment} disabled={formData[quantity]?.email === "" || formData?.length === quantity - 1 ? true : false}>+</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -320,7 +318,7 @@ console.log(formData,"submited form data is here" );
                                     <div>
                                         {rows.map((rowArray, index) => (
                                             <div className="position-relative mb-6 border rounded p-3" key={index}>
-                                                <h3>{index === 0 ? 'Personal Details' : `Attendees ${rowArray[0].id-1}`}</h3>
+                                                <h3>{index === 0 ? 'Personal Details' : `Attendees ${rowArray[0].id - 1}`}</h3>
                                                 {rowArray.slice(1).map((row) => (
                                                     <div key={row.id}>
                                                         <label className="form-label text-uppercase font-weight-bold fs-14 mb-2">
@@ -334,7 +332,7 @@ console.log(formData,"submited form data is here" );
                                                             defaultValue={row.defaultValue}
                                                             placeholder={row.placeholder}
                                                             onChange={(e) => handleInputChange(rowArray[0].id, row.name, e.target.value)}
-                                                            onBlur={(e)=>handleEmailConfirm(rowArray[0].id,row.name, e.target.value)}
+                                                            onBlur={(e) => handleEmailConfirm(rowArray[0].id, row.name, e.target.value)}
                                                         />
                                                     </div>
                                                 ))}
@@ -387,7 +385,7 @@ console.log(formData,"submited form data is here" );
                                             className="btn position-relative btn btn-danger fw-400 mt-3 lift view_tickets py-1 px-1"
                                             style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 400, fontSize: '14px', color: '#ffffff', backgroundColor: '#d9072a' }}
                                             onClick={handleSubmit}
-                                            disabled={formData[1]?.email=== "" ||formData?.length === 0 || selectedPayment!=="Stripe"  ? true: false}
+                                            disabled={formData[1]?.email === "" || formData?.length === 0 || selectedPayment !== "Stripe" ? true : false}
                                         >
                                             <PaystackButton className="paystack-button py-3 px-10" {...componentProps} />
                                         </button>
