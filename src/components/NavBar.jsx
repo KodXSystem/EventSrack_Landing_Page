@@ -39,7 +39,7 @@ export default function NavBar() {
                 <span className="">Contact Us</span>
               </a>
             </li>
-            <li className="menu-item menu-item-type-post_type menu-item-object-page   cta-button ft-menu-item-48   ft-menu-width-default  ft-menu-position-default ">
+            {/* <li className="menu-item menu-item-type-post_type menu-item-object-page   cta-button ft-menu-item-48   ft-menu-width-default  ft-menu-position-default ">
             <li className="menu-login-register-button menu-item ml-4">
                           <a
                             className="login-button"
@@ -54,7 +54,7 @@ export default function NavBar() {
                             Login/Register
                           </a>
                         </li>
-                       </li>
+                       </li> */}
             <li className="menu-item">
               <a
                 href="#"
