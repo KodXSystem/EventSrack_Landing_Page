@@ -20,3 +20,6 @@ export const buyTicket = (data) => {
 export const getUserFind = (data) => {
   return authAxios.post("/landingPage/getUserFind", data);
 }
+export const login = (data) => {
+  return authAxios.post("account/login", data);
+}

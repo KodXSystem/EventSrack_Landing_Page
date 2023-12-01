@@ -1,19 +1,22 @@
 import React from 'react'
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Paystack from '../assets/logo/Paystack.png'
 import moment from 'moment';
 import { buyTicket, getUserFind } from "../service/service"
 import { PaystackButton } from "react-paystack";
 import SweetAlert from 'react-bootstrap-sweetalert';
-
+import { Stack ,Badge  } from 'react-bootstrap';
+import LoginModel from '../components/LoginModel';
 export default function TicketBook() {
 
     const navigate = useNavigate();
     const { state } = useLocation();
     const searchData = state?.searchData;
-    const [show, setShow] = useState(false);
-    const [errorTitle, setErrorTitle] = useState("");
+    const [show, setShow] = useState({
+        showLogin: false,
+        email:""
+      });
     const [quantity, setQuantity] = useState(1);
     const [formData, setFormData] = useState([]);
     const [isPaying, setIsPaying] = useState(false);
@@ -92,7 +95,7 @@ export default function TicketBook() {
                     }
                 ]
             ];
-            console.log('Updated Rows:', updatedRows);
+   
             return updatedRows;
         });
     };
@@ -107,12 +110,37 @@ export default function TicketBook() {
             setRows(prevRows => {
                 const updatedRows = [...prevRows]; // Create a copy of the rows array
                 updatedRows.pop(); // Remove the last row
-                console.log('Updated Rows:', updatedRows);
                 return updatedRows;
             });
         }
     };
-
+    
+  useEffect(() => {
+    const storedValue = localStorage.getItem("myToken")
+    if(storedValue){
+    setRows(
+        rows.map((row) =>
+          row.filter((input) => input.name !== 'password')
+            .map((input) => {
+              const storedValue = localStorage.getItem(input.name);
+              return {
+                ...input,
+                defaultValue: storedValue !== null ? storedValue : input.defaultValue,
+              };
+            })
+        )
+      );
+      const newData = {
+        1: {
+          email: localStorage.getItem("email"),
+          first_name: localStorage.getItem("first_name"),
+          phone_number: localStorage.getItem("phone_number"),
+        },
+      };
+      
+      setFormData(newData);
+        }
+    }, []);
     const handleInputChange = (id, name, value) => {
         setFormData((prevData) => ({
             ...prevData,
@@ -143,7 +171,7 @@ export default function TicketBook() {
 
 
     };
-
+console.log(formData, "formdata");
     const handleSubmit = () => {
         const event_id = searchData?._id;
         const attendenceArr = rows?.map((rowArray) => {
@@ -190,7 +218,6 @@ export default function TicketBook() {
         onClose: () => console.log("Wait! don't go!!!!"),
     };
 
-
     const handleRemoveRow = (idToRemove) => {
         const updatedRows = rows.filter((row) => row[0].id !== idToRemove);
         setRows(updatedRows);
@@ -209,36 +236,40 @@ export default function TicketBook() {
             }
             try {
                 const res = await getUserFind(data)
-                console.log(res)
-                if(!res.data.error){
-                setShow(true)
-                setErrorTitle("This email is already exist")
+                if(!res.data.error && !localStorage.getItem("first_name")){
+                setShow({
+                    showLogin:true,
+                    email: res.data.data.email
+                })
+                setRows(
+                    rows.map((row) =>
+                      row
+                        .filter((input) => input.name !== 'password')
+                    )
+                  );
+
+                  
                 }
             } catch (error) {
                 console.log(error)
-                const errorMessage = error.response && error.response.data && error.response.data.message;
-                console.log("Error:", errorMessage || error.message);
             }
         }
     };
+
     const handlePaymentChange = (e) => {
         setSelectedPayment(e.target.value);
     };
     const handleCloseAlert = () => {
-        setShow(false)
+        setShow({
+            showLogin:false,
+            email: ""
+        })
     };
+
     return (
         <div>
             <>
-                <SweetAlert
-                    warning
-                    show={show}
-                    confirmBtnBsStyle="danger"
-                    title={errorTitle}
-                    text="Your Email Already Exist!"
-                    onConfirm={handleCloseAlert}
-                    onCancel={handleCloseAlert}
-                />
+            <LoginModel show={show.showLogin} handleCloseAlert={handleCloseAlert}  email={show.email} />
                 <section className="z-index-9 jarallax has-image-bg">
                     <img
                         className="jarallax-img"
@@ -279,7 +310,9 @@ export default function TicketBook() {
                                                         value={quantity}
                                                         readOnly
                                                     />
-                                                    <button className="plus" onClick={increment} disabled={formData[quantity]?.email === "" || formData?.length === quantity - 1 ? true : false}>+</button>
+                                                    <button className="plus" onClick={increment}
+                                                     disabled={formData[quantity]?.email === "" || formData?.length === quantity-1}
+                                                     >+</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -318,6 +351,7 @@ export default function TicketBook() {
                                     <div>
                                         {rows.map((rowArray, index) => (
                                             <div className="position-relative mb-6 border rounded p-3" key={index}>
+                                                 <Badge bg="success">{index === 0 && localStorage.getItem("myToken")?"login":""}</Badge>
                                                 <h3>{index === 0 ? 'Personal Details' : `Attendees ${rowArray[0].id - 1}`}</h3>
                                                 {rowArray.slice(1).map((row) => (
                                                     <div key={row.id}>
