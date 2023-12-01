@@ -23,7 +23,7 @@ export default function TicketBook() {
     const [res, setRes] = useState('')
     const [data1, setData1] = useState('')
     const [selectedPayment, setSelectedPayment] = useState('');
-
+///Initial State For Attendies
     const [rows, setRows] = useState([
         [
             { id: 1 },
@@ -59,7 +59,7 @@ export default function TicketBook() {
             },
         ]
     ]);
-
+// Increment Function to add attendies
     const increment = () => {
         setQuantity(prevQuantity => {
             const newQuantity = prevQuantity + 1;
@@ -99,6 +99,7 @@ export default function TicketBook() {
             return updatedRows;
         });
     };
+    //Decrement function to Reduce Attendies
     const decrement = (index) => {
         if (quantity > 1 && rows.length > 1) {
             setQuantity(prevQuantity => {
@@ -114,7 +115,7 @@ export default function TicketBook() {
             });
         }
     };
-    
+// This useEffect will set the storedValues of local storage if user is login 
   useEffect(() => {
     const storedValue = localStorage.getItem("myToken")
     if(storedValue){
@@ -130,6 +131,8 @@ export default function TicketBook() {
             })
         )
       );
+
+      ///It set the data of user which is already login into formdata
       const newData = {
         1: {
           email: localStorage.getItem("email"),
@@ -141,6 +144,8 @@ export default function TicketBook() {
       setFormData(newData);
         }
     }, []);
+
+    ////this will handle the input changes
     const handleInputChange = (id, name, value) => {
         setFormData((prevData) => ({
             ...prevData,
@@ -171,7 +176,7 @@ export default function TicketBook() {
 
 
     };
-console.log(formData, "formdata");
+// this will submit the formData
     const handleSubmit = () => {
         const event_id = searchData?._id;
         const attendenceArr = rows?.map((rowArray) => {
@@ -186,7 +191,7 @@ console.log(formData, "formdata");
         const data = {
             attendenceArr, searchData
         }
-        console.log('Converted Form Data:', data);
+
         setData1(data)
     };
 
@@ -259,6 +264,7 @@ console.log(formData, "formdata");
     const handlePaymentChange = (e) => {
         setSelectedPayment(e.target.value);
     };
+
     const handleCloseAlert = () => {
         setShow({
             showLogin:false,
