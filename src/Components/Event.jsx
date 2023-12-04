@@ -77,7 +77,7 @@ export default function Event(props) {
                   <Link to={`/EventDetails`} state={{event}} >
                     <MDBCard>
                       <div class="bg-image hover-overlay ripple">
-                        < MDBCardImage src="assets/wp-content/uploads/2019/12/sesame-street-live-3-873x1024.jpg" />
+                      <MDBCardImage src={`${process.env.REACT_APP_API_ENDPOINT_IMG}/media/eventImage/${event._id}/${event.banner_images[0]}`}/>
                         {/* < MDBCardImage src={event.banner_images} /> */}
                         <a href="#!">
                           <div className="mask" style={{ backgroundColor: "rgba(57, 192, 237, 0.2)" }}></div>

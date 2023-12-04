@@ -26,15 +26,6 @@ console.log(searchData);
                   <h1 className="royaltickets-heading mb-4 text-white text-center fw-600 mt-8" style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 600, fontSize: '56px', color: '#ffffff' }}>
                   {searchData?.event_name}
                   </h1>
-             {/* <p className="text-muted-alt text-center" style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 300, fontSize: '16px', color: '#aaa7ca' }}>
-                    by{" "}
-                    <a
-                      className="text-red text-uppercase"
-                      href="../../author/user3/index.html"
-                      style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 300, fontSize: '16px', color: '#d9072a' }}>
-                      Soho Events
-                    </a>
-                  </p> */}
                 </div>
               </div>
             </div>
@@ -134,7 +125,7 @@ console.log(searchData);
         {searchData?.banner_images.length > 0 ?
         <div className="container px-5"  >
         <div>
-        <ImageCarousel images={searchData?.banner_images}/>
+        <ImageCarousel images={searchData?.banner_images} event_id={searchData?._id}/>
         </div>
         </div>
          : "" }
