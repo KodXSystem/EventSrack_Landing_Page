@@ -155,7 +155,7 @@ export default function TicketBook() {
             },
         }));
     };
-
+console.log(formData);
 
     const payNowPaystack = async (data) => {
         try {
@@ -178,21 +178,26 @@ export default function TicketBook() {
     };
 // this will submit the formData
     const handleSubmit = () => {
-        const event_id = searchData?._id;
-        const attendenceArr = rows?.map((rowArray) => {
-            const rowData = rowArray?.slice(1).reduce((acc, row) => {
-                acc[row?.name] = formData[rowArray[0].id][row?.name];
-                acc['event_id'] = event_id
-                return acc;
-            }, {});
-            return rowData;
-        });
-        setRes(attendenceArr)
-        const data = {
-            attendenceArr, searchData
+        try {
+            const event_id = searchData?._id;
+            const attendenceArr = rows?.map((rowArray) => {
+                const rowData = rowArray?.slice(1).reduce((acc, row) => {
+                    acc[row?.name] = formData[rowArray[0]?.id][row?.name];
+                    acc['event_id'] = event_id
+                    return acc;
+                }, {});
+                return rowData;
+            });
+            setRes(attendenceArr)
+            const data = {
+                attendenceArr, searchData
+            }
+        
+            setData1(data)
+        } catch (error) {
+            console.error('An error occurred:', error);
+            // Handle the error as needed, e.g., display an error message to the user
         }
-
-        setData1(data)
     };
 
     const componentProps = {
