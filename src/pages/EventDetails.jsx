@@ -9,14 +9,14 @@ import ImageCarousel from '../components/ImageCarousel';
 const EventDetails = () => {
 const { state } = useLocation();
 const searchData = state?.event;
-console.log(searchData);
+
   return (
     <> 
       <section className="z-index-9 jarallax dark-background single-event-intro has-image-bg">
         <img
           className="jarallax-img"
-          src="/assets/wp-content/uploads/2019/12/vibra-mahou-fest-1-873x1024.jpg"
-          alt="Vibra Mahou Fest"
+          src={`${process.env.REACT_APP_API_ENDPOINT_IMG}/media/eventImage/${searchData._id}/${searchData.banner_images[0]}`}
+          alt= {searchData?.event_name}
         />
         <div className="container px-0">
           <div className="row">

@@ -284,7 +284,7 @@ console.log(formData);
                 <section className="z-index-9 jarallax has-image-bg">
                     <img
                         className="jarallax-img"
-                        src="/assets/wp-content/uploads/2019/12/vibra-mahou-fest-1-873x1024.jpg"
+                        src={`${process.env.REACT_APP_API_ENDPOINT_IMG}/media/eventImage/${searchData._id}/${searchData.banner_images[0]}`}
                     />
                     <div className="container px-0">
                         <div className="row">
