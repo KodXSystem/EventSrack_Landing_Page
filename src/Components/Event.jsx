@@ -1,111 +1,105 @@
-import React from 'react'
-import {
-  MDBCarousel, MDBCarouselItem, MDBContainer, MDBCol, MDBRow, MDBCard,
-  MDBCardBody, MDBCardOverlay, MDBCardText, MDBCardTitle, MDBCardImage
-} from 'mdb-react-ui-kit';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
 import { getEvents } from '../service/service';
-
-
-
-export default function Event(props) {
-  const eventDetails = props?.Events;
- 
-
-  
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+import Carousel from 'react-multi-carousel';
+import 'react-multi-carousel/lib/styles.css';
+import NoImage from "../assets/logo/NoImage.jpg"
+const Event = (props) => {
   const [allEvents, setAllEvents] = useState([]);
-
-  const handleResize = () => {
-    setWindowWidth(window.innerWidth);
-  };
-  const getAllEvents = async () => {
-    try {
-      const res = await getEvents();
-      setAllEvents(res?.data?.data?.data || []);
-    } catch (e) {
-      console.log(e.message);
-    }
-  };
- 
+  const [hoveredCard, setHoveredCard] = useState(null);
   useEffect(() => {
-    getAllEvents()
-  }, [])
-
-
-
-  console.log(allEvents)
-
-
-  useEffect(() => {
-    const resizeListener = () => {
-      handleResize();
+    const getAllEvents = async () => {
+      try {
+        const res = await getEvents();
+        setAllEvents(res?.data?.data?.data || []);
+      } catch (e) {
+        console.log(e.message);
+      }
     };
 
-    window.addEventListener('resize', resizeListener);
-
-    return () => {
-      window.removeEventListener('resize', resizeListener);
-    };
+    getAllEvents();
   }, []);
 
-  const events = allEvents;
-  
-  let eventsChunks = []
-  const isMobile = window.innerWidth <= 771;
-  const chunkSize = isMobile ? 1 : 3;
-  if (props.Events?.length > 0) {
-    for (let i = 0; i < props.Events.length; i += chunkSize) {
-      eventsChunks.push(props.Events.slice(i, i + chunkSize));
-    }
-  }
-  else {
-    for (let i = 0; i < events.length; i += chunkSize) {
-      eventsChunks.push(events.slice(i, i + chunkSize));
-    }
-  }
+  const responsive = {
+    superLargeDesktop: {
+      breakpoint: { max: 4000, min: 3000 },
+      items: 3,
+    },
+    desktop: {
+      breakpoint: { max: 3000, min: 1024 },
+      items: 3,
+    },
+    tablet: {
+      breakpoint: { max: 1024, min: 464 },
+      items: 2,
+      slidesToSlide: 2
+    },
+    mobile: {
+      breakpoint: { max: 464, min: 0 },
+      items: 1,
+      slidesToSlide: 1
+    },
+  };
+
   return (
-    <MDBContainer style={{ marginBottom: '20px', marginTop: '-12px', marginLeft: '15px' }}>
-      <MDBCarousel showControls style={{ marginTop: '-168px' }}>
-        {eventsChunks.map((chunk, index) => (
-          <MDBCarouselItem key={index + 1} itemId={index + 1} style={{ marginTop: '177px' }} className={index === 0 ? 'active' : ''} interval={5000} >
-            <MDBRow >
-              {chunk.map(event => (
-                <MDBCol key={event.id}  >
-                  <Link to={`/EventDetails`} state={{event}} >
-                    <MDBCard>
-                      <div class="bg-image hover-overlay ripple">
-                      <MDBCardImage src={`${process.env.REACT_APP_API_ENDPOINT_IMG}/media/eventImage/${event._id}/${event.banner_images[0]}`}/>
-                        {/* < MDBCardImage src={event.banner_images} /> */}
-                        <a href="#!">
-                          <div className="mask" style={{ backgroundColor: "rgba(57, 192, 237, 0.2)" }}></div>
-                        </a>
-                      </div>
-                      < MDBCardOverlay  >
-                        <MDBCardBody style={{ bottom: "0px", marginTop: '110px' }} >
-                          <MDBCardText style={{ color: 'white', position: 'relative', marginBottom: '-8px' }}>NGN {" "}{event.amount}/-</MDBCardText>
-                          <MDBCardTitle style={{ color: 'white' }}>{event.event_name}</MDBCardTitle>
-                          <MDBCardText style={{ color: 'white' }}>
-                            <i className="fe fe-calendar text-white opacity_60 fs-80 mr-2"></i>
-                            Event Start Date:{' '}{moment(event?.event_start_date).format('DD-MM-YYYY')} {" "}
-                            <i className="fe fe-map-pin text-white opacity_60 fs-80 mr-2"></i>{event.event_location}
-                            <br />
-                            <div>
-                              <a href="#" className='text-white'>Book ticket</a>
-                            </div>
-                          </MDBCardText>
-                        </MDBCardBody>
-                      </ MDBCardOverlay>
-                    </MDBCard>
-                  </Link>
-                </MDBCol>
-              ))}
-            </MDBRow>
-          </MDBCarouselItem>
-        ))}
-      </MDBCarousel>
-    </MDBContainer>
-  )
-}
+    <div className="ml-3 mb-0">
+    <Carousel responsive={responsive} 
+    infinite 
+    autoPlay={props.deviceType !== "mobile" ? true : false}
+    containerClass="carousel-container"
+    autoPlaySpeed={3000}
+    deviceType={props.deviceType}
+    removeArrowOnDeviceType={["tablet", "mobile"]}
+    keyBoardControl={true}>
+      {allEvents.map((event, index) => (
+        <div
+          key={index}
+          onMouseEnter={() => setHoveredCard(index)}
+          onMouseLeave={() => setHoveredCard(null)}
+        >
+          <Link to={`/EventDetails`} state={{ event }}>
+            <div className="mb-4 p-2" style={{ position: 'relative' }}>
+              <div className="card">
+                <img
+                  src={`${process.env.REACT_APP_API_ENDPOINT_IMG}/media/eventImage/${event._id}/${event.banner_images[0]}`}
+                  className="card-img-top"
+                  alt="No Image"
+                  style={{ width: 'auto', height: '400px',position: 'relative' }}
+                  onError={(e) => {
+                    e.target.src = NoImage;
+                    e.target.alt = "No Image";
+                  }}
+                />
+                <div
+                 className="text-white position-absolute top-120 start-0 end-0 bottom-0 p-4"
+                >
+                  <div className="card-body text-white "  >
+                  <h5 className="text-white">NGN {event.amount}/-</h5>
+                    <h4 className="card-title text-white">{event.event_name}</h4>
+                    <h5 className="text-white">
+                    <i className="fe fe-calendar text-white opacity_60 fs-80 mr-2"></i>
+                      Event Start Date: {moment(event?.event_start_date).format('DD-MM-YYYY')}</h5>
+                    <h5 className="text-white">  <i className="fe fe-map-pin text-white opacity_60 fs-80 mr-2"></i>{event.event_location}</h5>
+                    <a
+                      href="/EventDetails"
+                      className="btn btn-danger"
+                      style={{
+                        opacity: hoveredCard === index ? 1 : 0,
+                        transition: 'opacity 0.3s',
+                      }}
+                    >
+                      Book ticket
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </Link>
+        </div>
+      ))}
+    </Carousel>
+  </div>
+  );
+};
+export default Event;
