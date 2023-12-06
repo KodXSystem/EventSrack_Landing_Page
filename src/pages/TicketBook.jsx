@@ -12,7 +12,7 @@ export default function TicketBook() {
 
     const navigate = useNavigate();
     const { state } = useLocation();
-    const searchData = state?.searchData;
+    const searchData = state?.event;
     const [show, setShow] = useState({
         showLogin: false,
         email:""
@@ -155,7 +155,7 @@ export default function TicketBook() {
             },
         }));
     };
-console.log(formData);
+
 
     const payNowPaystack = async (data) => {
         try {

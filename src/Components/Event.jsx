@@ -81,8 +81,8 @@ const Event = (props) => {
                     <i className="fe fe-calendar text-white opacity_60 fs-80 mr-2"></i>
                       Event Start Date: {moment(event?.event_start_date).format('DD-MM-YYYY')}</h5>
                     <h5 className="text-white">  <i className="fe fe-map-pin text-white opacity_60 fs-80 mr-2"></i>{event.event_location}</h5>
-                    <a
-                      href="/EventDetails"
+                    <Link
+                      to={`/TicketBook`} state={{ event }}
                       className="btn btn-danger"
                       style={{
                         opacity: hoveredCard === index ? 1 : 0,
@@ -90,7 +90,7 @@ const Event = (props) => {
                       }}
                     >
                       Book ticket
-                    </a>
+                    </Link>
                   </div>
                 </div>
               </div>
